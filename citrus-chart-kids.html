@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fffaf1">
+<title>みかんチャート｜こども版</title>
+<style>
+:root{--orange:#c55716;--green:#286644;--ink:#29382d;--muted:#626d61;--paper:#fffaf1;--line:#e6e5d6}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.8}button{font:inherit}button,a{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible{outline:3px solid var(--green);outline-offset:5px}[hidden]{display:none!important}.wrap{max-width:920px;margin:auto;padding:36px 24px 24px}.brand{display:inline-flex;align-items:center;gap:10px;color:var(--green);font-size:14px;font-weight:700;letter-spacing:.1em}.brand:before{content:"";width:12px;height:12px;border-radius:50%;background:var(--orange)}header{border-bottom:1px solid var(--line);padding-bottom:20px}.hero{padding:46px 0 30px}.eyebrow{color:var(--orange);font-size:12px;font-weight:700;letter-spacing:.16em;margin:0 0 10px}h1{font-size:clamp(30px,5vw,44px);line-height:1.4;letter-spacing:.03em;margin:0 0 16px}h2{font-size:clamp(25px,4vw,34px);line-height:1.5;margin:12px 0 18px}.intro{color:var(--muted);margin:0;max-width:580px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{appearance:none;width:100%;text-align:left;border:1px solid var(--line);border-radius:18px;background:#fff;padding:25px 22px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;transition:transform .18s,border-color .18s,box-shadow .18s;color:var(--ink)}.card:hover{transform:translateY(-3px);border-color:var(--orange);box-shadow:0 8px 24px #29382d09}.number{font-size:12px;font-weight:700;color:var(--orange);letter-spacing:.12em}.card-title{font-size:20px;font-weight:700;line-height:1.6;margin:20px 0 12px}.card-description{font-size:14px;color:var(--muted);margin-bottom:24px}.card-action{margin-top:auto;color:var(--green);font-size:14px;font-weight:700}.note{color:var(--muted);font-size:13px;margin:24px 0 0}.back{appearance:none;border:0;background:transparent;padding:12px 0;color:var(--green);cursor:pointer;min-height:48px;font-size:14px;font-weight:700}.detail{padding-top:24px;max-width:650px;margin:auto}.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:36px;margin-top:14px}.tag{display:inline-block;background:#eef4e9;color:var(--green);border-radius:50px;padding:4px 12px;font-size:12px;font-weight:700}.description{color:var(--muted);margin:0 0 26px}.steps{padding:20px;border-radius:12px;background:var(--paper);font-size:14px}.steps p{margin:0 0 8px;font-weight:700}.steps ol{padding-left:22px;margin:0;color:var(--muted)}.status{padding:16px 0 0;color:var(--muted);font-size:13px;margin:0}.return{background:var(--green);color:white;border:0;border-radius:10px;padding:13px 20px;width:100%;min-height:48px;cursor:pointer;margin-top:22px;font-weight:700}.return:hover{background:#1c5033}footer{border-top:1px solid var(--line);margin-top:48px;padding:20px 0;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}@media(max-width:700px){.wrap{padding:22px 20px}.hero{padding:32px 0 24px}.cards{grid-template-columns:1fr;gap:12px}.card{padding:20px 22px}.card-title{margin:8px 0;font-size:20px}.card-description{margin-bottom:12px}.panel{padding:25px 22px}.detail{padding-top:14px}footer{margin-top:32px}}@media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+
+#quiz-content{margin-top:24px}.viz-grid{display:grid;gap:10px;margin:18px 0}.btn{appearance:none;background:#fff;border:1px solid var(--line);border-radius:10px;color:var(--green);padding:13px 16px;cursor:pointer;min-height:48px;font-weight:700;margin:8px 8px 0 0}.viz-tile{margin:0;text-align:left;color:var(--ink);font-weight:500;width:100%}.btn:hover{border-color:var(--orange);background:var(--paper)}.btn[aria-pressed="true"]{border-color:var(--green);background:#eef4e9}#cm-stage .card{cursor:default;display:block;padding:22px;background:var(--paper)}#cm-stage .card:hover{transform:none;box-shadow:none}#cm-stage h3{font-size:22px;line-height:1.6;margin:12px 0}#cm-stage .card h3{font-size:30px;color:var(--orange)}.text-small{font-size:13px;color:var(--muted)}#cm-path{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}#cm-path span{font-size:12px;background:#eef4e9;color:var(--green);padding:4px 10px;border-radius:8px}
+.scope{font-size:14px;color:var(--green);margin:0 0 24px}.facts{display:grid;grid-template-columns:90px 1fr;gap:8px 12px}.facts dt{font-size:14px;font-weight:700}.facts dd{margin:0;min-height:25px}details{margin:14px 0;border:1px solid var(--line);border-radius:12px;padding:14px}summary{cursor:pointer;color:var(--green);font-weight:700}a{color:var(--green);overflow-wrap:anywhere}#cm-stage h3{scroll-margin-top:20px}.card p{overflow-wrap:anywhere}@media(max-width:700px){.facts{grid-template-columns:78px 1fr}#cm-stage .card{padding:18px}}
+.result-notes{font-size:11px;line-height:1.7;color:var(--muted);margin-top:18px}.result-notes p{margin:7px 0}
+body{font-size:17px}.btn,.return{font-size:18px;min-height:60px;padding:17px 18px}.card-description,.intro,.description{font-size:17px}.card-action{font-size:17px}.cards{grid-template-columns:1fr}.card-title{font-size:24px}.brand{font-size:18px;letter-spacing:0}.brand small{font-size:13px;background:#eef4e9;padding:4px 8px;border-radius:8px}.viz-grid{gap:14px}.scope{font-size:14px}.facts{grid-template-columns:90px 1fr}rt{font-size:12px}ruby{ruby-position:over}#cm-path{display:none}.steps{font-size:16px}.result-notes{font-size:12px}@media(max-width:700px){.wrap{padding:22px 16px}.panel{padding:24px 18px}.facts{grid-template-columns:78px 1fr}}
+body{padding-bottom:56px}.creator-credit{position:fixed;right:12px;bottom:8px;z-index:10;margin:0;max-width:calc(100% - 24px);padding:4px 8px;border-radius:6px;background:var(--paper);color:var(--muted);font-size:11px;line-height:1.6;text-align:right;overflow-wrap:anywhere}
+.version-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;margin-top:24px;border:1px solid var(--green);border-radius:10px;background:#eef4e9;color:var(--green);font-weight:700;text-decoration:none}.version-link:hover{background:#e1ecd9}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><span class="brand">みかんチャート <small>こども版</small></span></header>
+<main id="main">
+<section id="home" aria-labelledby="home-title">
+<div class="hero"><p class="eyebrow">こども版</p><h1 id="home-title" tabindex="-1">どんな みかんが すき？</h1><p class="intro">食べたいみかんを、さがしてみよう。<br>下のボタンをおして、はじめよう。</p></div>
+<p class="scope">愛媛（えひめ）の中予（ちゅうよ）で育つ、みかんを中心にしょうかいするよ。</p>
+<div class="cards" id="diagnosis-cards"></div>
+<p class="note">4つのしつもんにこたえて、食べたいみかんをさがそう。</p>
+<a class="version-link" href="index.html#home">← 通常版はこちら</a>
+</section>
+<section id="diagnosis" class="detail" aria-labelledby="diagnosis-title" hidden>
+<button type="button" class="back" data-home>← はじめのページへ</button>
+<div class="panel"><span class="tag" id="diagnosis-tag"></span><h2 id="diagnosis-title" tabindex="-1"></h2><p class="description" id="diagnosis-description"></p><div class="steps"><p>あそび方</p><ol id="diagnosis-steps"></ol></div>
+<!-- 質問と結果はこの領域に描画します。入口と戻る操作はそのまま利用できます。 -->
+<div id="quiz-content"><p class="status" role="status">このチャートは、じゅんび中です。またあそびにきてね。</p></div>
+<button type="button" class="return" data-home>はじめのページへ</button>
+<details id="kids-adult-notes" class="result-notes" hidden><summary>おとなの方へ：このチャートについて</summary><div id="quiz-notes" hidden></div></details></div>
+</section>
+</main>
+<footer><span>みかんチャート <small>こども版</small></span><span>みかんを、もっと楽しく。</span></footer>
+</div>
+<script>
+'use strict';
+// 診断ごとの文章と質問データをここにまとめます。
+// questions に質問を追加し、renderQuiz() に表示・判定処理を実装してください。
+const diagnoses = {
+ today:{title:'きょう食べたい みかんさがし',tag:'4つのしつもん',summary:'すきな味をえらんで、食べたいみかんを見つけよう。',description:'ボタンをおして、4つのしつもんにこたえてね。せいかい・まちがいはないよ。',steps:['すきなものを、ひとつずつえらぶ','みかんの名前と、食べ方を見てみよう']}
+};
+const home = document.getElementById('home');
+const detail = document.getElementById('diagnosis');
+const cards = document.getElementById('diagnosis-cards');
+let lastSelected = null;
+Object.entries(diagnoses).forEach(([id, item], index) => {
+  const button = document.createElement('button');
+  button.type = 'button'; button.className = 'card'; button.dataset.diagnosis = id;
+  for (const [className, value] of [
+    ['number', 'その' + (index + 1)], ['card-title', item.title],
+    ['card-description', item.summary], ['card-action', id==='today'?'やってみる →':'じゅんび中 →']
+  ]) {
+    const span = document.createElement('span'); span.className = className; span.textContent = value; button.appendChild(span);
+  }
+  button.addEventListener('click', () => { lastSelected = id; location.hash = id; });
+  cards.appendChild(button);
+});
+function renderQuiz(id) {
+  const notes=document.getElementById('quiz-notes');notes.replaceChildren();notes.hidden=true;document.getElementById('kids-adult-notes').hidden=true;
+  if (id === 'today') {
+    const container = document.getElementById('quiz-content');
+    const start = document.createElement('button');
+    start.type = 'button'; start.className = 'return'; start.textContent = 'はじめる';
+    start.addEventListener('click', () => {
+      container.innerHTML = '<div id="citrus-match"><div id="cm-path" aria-label="これまでの回答"></div><div id="cm-stage"></div></div>';
+      initTodayQuiz();
+    });
+    container.replaceChildren(start);
+    return;
+  }
+  // 今後の拡張ポイント：diagnoses[id].questions を使い、質問・結果を表示。
+  const status = document.createElement('p'); status.className = 'status'; status.setAttribute('role', 'status');
+  status.textContent = 'このチャートは、じゅんび中です。またあそびにきてね。';
+  document.getElementById('quiz-content').replaceChildren(status);
+}
+
+// 2026-10-05確認。空欄はnull。県外の情報・未確認のイメージ配点は使いません。
+const citrusData = [
+  {
+    "id": "unshu",
+    "name": "温州みかん",
+    "facts": {
+      "sweet": "あまさと、すっぱさのバランスがよい",
+      "texture": null,
+      "aroma": null
+    },
+    "eat": "手でむいて、ふさごと食べられます。",
+    "season": "露地：10月上旬〜1月下旬／温室：6月上旬〜9月下旬",
+    "months": [
+      10,
+      11,
+      12,
+      1,
+      6,
+      7,
+      8,
+      9
+    ],
+    "matches": {
+      "taste": [
+        "balanced"
+      ],
+      "effort": [
+        "quick",
+        "whole"
+      ]
+    },
+    "sources": [
+      [
+        "JAえひめ中央・特徴と出荷時期",
+        "https://www.kankitsu-ehime.jp/kinds.html"
+      ]
+    ],
+    "region": "中予地域（松山市・伊予市・砥部町）",
+    "regionSource": "https://www.ja-e-chuo.or.jp/agri/intro/fruit/",
+    "note": "系統や栽培方法によって時期が異なります。",
+    "reading": "うんしゅうみかん"
+  },
+  {
+    "id": "beni",
+    "name": "紅まどんな",
+    "facts": {
+      "sweet": "あまい果汁",
+      "texture": "ゼリーのようになめらか。果汁がたっぷり",
+      "aroma": "食べると、かおりが広がる"
+    },
+    "eat": "ナイフで切って食べます。切るときは、おとなの人にたのんでね。",
+    "season": "12月上旬〜12月下旬",
+    "months": [
+      12
+    ],
+    "matches": {
+      "scene": [
+        "gift"
+      ],
+      "texture": [
+        "jelly",
+        "juicy",
+        "smooth"
+      ],
+      "taste": [
+        "sweet"
+      ],
+      "effort": [
+        "whole",
+        "cut"
+      ]
+    },
+    "sources": [
+      [
+        "愛媛県・特徴と出荷時期",
+        "https://www.pref.ehime.jp/uploaded/attachment/74339.pdf"
+      ],
+      [
+        "JAえひめ中央・果樹紹介",
+        "https://www.ja-e-chuo.or.jp/agri/intro/fruit/"
+      ],
+      [
+        "JAえひめ中央・食べ方と贈答用途",
+        "https://www.kankitsu-ehime.jp/kinds.html"
+      ]
+    ],
+    "region": "中予地域（松山市・伊予市・砥部町）",
+    "regionSource": "https://www.ja-e-chuo.or.jp/agri/intro/fruit/",
+    "note": "「紅まどんな」は商品名です。品種名は「愛媛果試第28号」で、品質基準を満たした果実が紅まどんなとして出荷されます。",
+    "reading": "べにまどんな"
+  },
+  {
+    "id": "kanpei",
+    "name": "甘平",
+    "facts": {
+      "sweet": "あまみが強い",
+      "texture": "かむと、つぶの歯ごたえがある",
+      "aroma": "さわやかな、かおり"
+    },
+    "eat": "手でむいて、ふさごと食べられます。",
+    "season": "2月上旬〜3月中旬",
+    "months": [
+      2,
+      3
+    ],
+    "matches": {
+      "texture": [
+        "crisp"
+      ],
+      "taste": [
+        "verySweet",
+        "sweet"
+      ],
+      "aroma": [
+        "fresh"
+      ],
+      "effort": [
+        "quick",
+        "whole"
+      ]
+    },
+    "sources": [
+      [
+        "愛媛県・特徴と出荷時期",
+        "https://www.pref.ehime.jp/uploaded/attachment/74349.pdf"
+      ]
+    ],
+    "region": "中予地域（松山市・伊予市・砥部町）",
+    "regionSource": "https://www.ja-e-chuo.or.jp/agri/intro/fruit/",
+    "note": "",
+    "reading": "かんぺい"
+  },
+  {
+    "id": "iyokan",
+    "name": "伊予柑",
+    "facts": {
+      "sweet": "あまさと、ほどよいすっぱさ",
+      "texture": "果汁がたっぷり",
+      "aroma": "さわやかな、かおり"
+    },
+    "eat": "外の皮と、ふさをつつむ皮をむいて食べます。",
+    "season": "1月上旬〜3月下旬",
+    "months": [
+      1,
+      2,
+      3
+    ],
+    "matches": {
+      "texture": [
+        "juicy"
+      ],
+      "taste": [
+        "balanced"
+      ],
+      "aroma": [
+        "fresh"
+      ],
+      "effort": [
+        "quick"
+      ]
+    },
+    "sources": [
+      [
+        "愛媛県・特徴と出荷時期",
+        "https://www.pref.ehime.jp/uploaded/attachment/74343.pdf"
+      ],
+      [
+        "JAえひめ中央・味の特徴",
+        "https://www.ja-e-chuo.or.jp/agri/intro/fruit/"
+      ]
+    ],
+    "region": "中予地域（松山市・伊予市・砥部町）",
+    "regionSource": "https://www.ja-e-chuo.or.jp/agri/intro/fruit/",
+    "note": "",
+    "reading": "いよかん"
+  },
+  {
+    "id": "shiranui",
+    "name": "不知火（デコポン）",
+    "facts": {
+      "sweet": "あまみと、ほどよいすっぱさ。春のよく熟したものは、あまみが増して、すっぱさが減る",
+      "texture": null,
+      "aroma": "かおりがよい"
+    },
+    "eat": "手でむいて、ふさごと食べられます。",
+    "season": "12月上旬〜5月上旬",
+    "months": [
+      12,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "matches": {
+      "taste": [
+        "sweet",
+        "balanced"
+      ],
+      "effort": [
+        "quick",
+        "whole"
+      ]
+    },
+    "sources": [
+      [
+        "愛媛県・特徴と出荷時期",
+        "https://www.pref.ehime.jp/uploaded/attachment/74341.pdf"
+      ],
+      [
+        "JAえひめ中央・味の特徴",
+        "https://www.kankitsu-ehime.jp/kinds.html"
+      ],
+      [
+        "JAえひめ中央・香りと食べ方",
+        "https://www.ja-e-chuo.or.jp/agri/intro/fruit/"
+      ]
+    ],
+    "region": "中予地域（松山市・伊予市・砥部町）",
+    "regionSource": "https://www.ja-e-chuo.or.jp/agri/intro/fruit/",
+    "note": "品種名は「不知火」です。「デコポン」は登録商標で、すべての不知火がこの商品名で販売されるわけではありません。栽培方法によって出荷時期が異なります。",
+    "reading": "しらぬい・デコポン"
+  },
+  {
+    "id": "harehime",
+    "name": "はれひめ",
+    "facts": {
+      "sweet": null,
+      "texture": "やわらかく、果汁がたっぷり",
+      "aroma": "オレンジのような、さわやかなかおり"
+    },
+    "eat": "手でむいて、ふさごと食べられます。",
+    "season": "12月上旬〜1月下旬",
+    "months": [
+      12,
+      1
+    ],
+    "matches": {
+      "texture": [
+        "soft",
+        "juicy"
+      ],
+      "aroma": [
+        "fresh"
+      ],
+      "effort": [
+        "quick",
+        "whole",
+        "thick"
+      ]
+    },
+    "sources": [
+      [
+        "愛媛県・特徴と出荷時期",
+        "https://www.pref.ehime.jp/uploaded/attachment/74340.pdf"
+      ],
+      [
+        "JAえひめ中央・果肉と外皮の特徴",
+        "https://www.kankitsu-ehime.jp/kinds.html"
+      ]
+    ],
+    "region": "中予地域（松山市・伊予市・砥部町）",
+    "regionSource": "https://www.ja-e-chuo.or.jp/agri/intro/fruit/",
+    "note": "",
+    "reading": "はれひめ"
+  },
+  {
+    "id": "setoka",
+    "name": "せとか",
+    "facts": {
+      "sweet": "こいあまみと、こく",
+      "texture": "やわらかく、果汁がたっぷり",
+      "aroma": "こいかおり"
+    },
+    "eat": "手でむいて、ふさごと食べられます。切るときは、おとなの人にたのんでね。",
+    "season": "1月下旬〜3月下旬",
+    "months": [
+      1,
+      2,
+      3
+    ],
+    "matches": {
+      "texture": [
+        "jelly",
+        "soft",
+        "juicy",
+        "smooth"
+      ],
+      "taste": [
+        "sweet"
+      ],
+      "aroma": [
+        "rich"
+      ],
+      "effort": [
+        "quick",
+        "whole",
+        "cut"
+      ]
+    },
+    "sources": [
+      [
+        "愛媛県・特徴と出荷時期",
+        "https://www.pref.ehime.jp/uploaded/attachment/74350.pdf"
+      ],
+      [
+        "JAえひめ中央・味と食べ方",
+        "https://www.kankitsu-ehime.jp/kinds.html"
+      ]
+    ],
+    "region": "中予地域（松山市・伊予市・砥部町）",
+    "regionSource": "https://www.ja-e-chuo.or.jp/agri/intro/fruit/",
+    "note": "",
+    "reading": "せとか"
+  },
+  {
+    "id": "kara",
+    "name": "カラマンダリン",
+    "facts": {
+      "sweet": "強いあまみと、ほどよいすっぱさ",
+      "texture": "やわらかく、果汁がたっぷり",
+      "aroma": null
+    },
+    "eat": "手でむいて食べます。たねがあるので、気をつけてね。",
+    "season": "4月中旬〜5月下旬",
+    "months": [
+      4,
+      5
+    ],
+    "matches": {
+      "texture": [
+        "soft",
+        "juicy"
+      ],
+      "taste": [
+        "verySweet",
+        "sweet",
+        "balanced"
+      ],
+      "effort": [
+        "quick",
+        "whole"
+      ]
+    },
+    "sources": [
+      [
+        "愛媛県・特徴と出荷時期",
+        "https://www.pref.ehime.jp/uploaded/attachment/74358.pdf"
+      ],
+      [
+        "JAえひめ中央・味と果肉",
+        "https://www.kankitsu-ehime.jp/kinds.html"
+      ]
+    ],
+    "region": "中予地域（松山市・伊予市・砥部町）",
+    "regionSource": "https://www.ja-e-chuo.or.jp/agri/intro/fruit/",
+    "note": "",
+    "reading": "カラマンダリン"
+  },
+  {
+    "id": "jabara",
+    "name": "じゃばら",
+    "facts": {
+      "sweet": "よく熟しても、とてもすっぱい。少しにがみもある",
+      "texture": null,
+      "aroma": null
+    },
+    "eat": "しぼった果汁を、料理や飲みものに入れて楽しみます。",
+    "season": "12月中旬〜2月下旬",
+    "months": [
+      12,
+      1,
+      2
+    ],
+    "matches": {
+      "scene": [
+        "cooking"
+      ],
+      "taste": [
+        "tart"
+      ],
+      "effort": [
+        "squeeze"
+      ]
+    },
+    "sources": [
+      [
+        "愛媛県・用途と出荷時期",
+        "https://www.pref.ehime.jp/uploaded/attachment/74367.pdf"
+      ],
+      [
+        "内子フレッシュパークからり・味と用途",
+        "https://kararishop.jp/?pid=143018001"
+      ]
+    ],
+    "region": "内子町",
+    "regionSource": "https://kararishop.jp/?pid=143018001",
+    "note": "",
+    "reading": "じゃばら"
+  }
+];
+const todayQuestions = [
+  [
+    "どんな味がすき？",
+    "taste",
+    [
+      [
+        "sweet",
+        "あまい"
+      ],
+      [
+        "balanced",
+        "あまくて、少しすっぱい"
+      ],
+      [
+        "tart",
+        "すっぱい"
+      ],
+      [
+        "any",
+        "どれでもいい"
+      ]
+    ]
+  ],
+  [
+    "どんな食べごこちがすき？",
+    "texture",
+    [
+      [
+        "jelly",
+        "ゼリーみたいに、とろっと"
+      ],
+      [
+        "crisp",
+        "つぶつぶ、しゃきっと"
+      ],
+      [
+        "juicy",
+        "果汁が、じゅわっと"
+      ],
+      [
+        "any",
+        "どれでもいい"
+      ]
+    ]
+  ],
+  [
+    "どうやって楽しみたい？",
+    "effort",
+    [
+      [
+        "quick",
+        "手でむいて食べたい"
+      ],
+      [
+        "cut",
+        "切って食べたい"
+      ],
+      [
+        "squeeze",
+        "しぼって、飲みものや料理に使いたい"
+      ]
+    ]
+  ],
+  [
+    "いつ食べたい？",
+    "timing",
+    [
+      [
+        "autumn",
+        "秋（9〜11月）"
+      ],
+      [
+        "winter",
+        "冬（12〜2月）"
+      ],
+      [
+        "spring",
+        "春（4〜5月）"
+      ],
+      [
+        "anytime",
+        "いつでもいい"
+      ]
+    ]
+  ]
+];
+const timingMonths = {autumn:[9,10,11],december:[12],january:[1],february:[2],march:[3],spring:[4,5],winter:[12,1,2],anytime:[]};
+// 一致する回答を各1点として数えます。これは検索用の対応づけで、糖度や香りの強度の順位ではありません。
+function rankCitrus(answers) {
+ const months=timingMonths[answers.timing] || [];
+ const cooking=answers.scene==='cooking'||answers.effort==='squeeze';
+ return citrusData.filter(f=>!months.length||f.months.some(m=>months.includes(m)))
+ .filter(f=>f.id!=='jabara'||cooking)
+ .map((fruit,index)=>({fruit,index,matches:todayQuestions.filter(q=>fruit.matches[q[1]]?.includes(answers[q[1]]))}))
+ .map(item=>({...item,score:item.matches.length})).sort((a,b)=>b.score-a.score||a.index-b.index);
+}
+function initTodayQuiz() {
+ const root=document.getElementById('citrus-match');
+ const stage=root.querySelector('#cm-stage'),path=root.querySelector('#cm-path');
+ const notes=document.getElementById('quiz-notes');
+ const questions=todayQuestions;
+ let answers={},step=0;
+ function el(tag,text,className){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(className)e.className=className;return e;}
+ function button(label,fn){const b=el('button',label,'btn');b.type='button';b.onclick=fn;return b;}
+ function sources(parent,entries){const p=el('p',undefined,'text-small');p.append(el('span','参考：'));entries.forEach(([label,url],i)=>{if(i)p.append(el('span',' ／ '));const a=el('a',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';p.append(a);});parent.append(p);}
+ function showFruit(parent,f){
+ const card=el('div',undefined,'card');const heading=el('h3');if(f.name!==f.reading){const ruby=el('ruby');ruby.append(el('span',f.name),el('rt',f.reading));heading.append(ruby);}else{heading.textContent=f.name;}card.append(heading);
+ const dl=el('dl',undefined,'facts');for(const [key,label] of [['sweet','味'],['texture','食べごこち'],['aroma','かおり']]){dl.append(el('dt',label),el('dd',f.facts[key] || ''));}card.append(dl);
+ card.append(el('p','食べ方：'+f.eat));
+ const extra=el('details');extra.append(el('summary','おとなの方へ：時期と参考情報'),el('p','出荷時期の目安：'+f.season),el('p','栽培確認地域：'+f.region));
+ if(f.note)extra.append(el('p',f.note,'text-small'));
+ sources(extra,f.sources);sources(extra,[['栽培地域の根拠',f.regionSource]]);card.append(extra);parent.append(card);
+ }
+ function render(){
+ notes.replaceChildren();notes.hidden=true;document.getElementById('kids-adult-notes').hidden=true;
+ path.replaceChildren();questions.forEach(q=>{const o=q[2].find(o=>o[0]===answers[q[1]]);if(o)path.append(el('span',o[1]));});stage.replaceChildren();
+ if(step===questions.length){
+ const ranked=rankCitrus(answers),best=ranked[0];
+ stage.append(el('h3',best?.score>0?'こんな みかんは どう？':'もういちど、えらんでみよう'));
+ if(best?.score>0){
+ showFruit(stage,best.fruit);
+ const labels=best.matches.map(q=>q[2].find(o=>o[0]===answers[q[1]])[1]);
+ stage.append(el('p','えらんだ答えと、合うところ：'+labels.join('／')));
+ const tied=ranked.filter(r=>r.score===best.score).slice(1);
+ if(tied.length){stage.append(el('p','こんな みかんも、合っているよ。'));
+ tied.forEach(item=>{const d=el('details');d.append(el('summary',item.fruit.reading+'を見てみる'));showFruit(d,item.fruit);stage.append(d);});}
+ }else{stage.append(el('p','えらんだ答えに合うみかんが、見つからなかったよ。答えをかえてみる？'));
+ ranked.forEach(item=>{const d=el('details');d.append(el('summary',item.fruit.name+'の特徴を見る'));showFruit(d,item.fruit);stage.append(d);});}
+ const unused=questions.filter(q=>{const v=answers[q[1]];return q[1]!=='timing'&&!citrusData.some(f=>f.matches[q[1]]?.includes(v));}).map(q=>q[0]);
+ notes.hidden=false;document.getElementById('kids-adult-notes').hidden=false;
+ if(unused.length)notes.append(el('p','根拠が未確認のため判定に使用していない回答項目：'+unused.join('・')));
+ notes.append(el('p','出荷時期は愛媛県の情報シートを使用しています（温州みかんはJAえひめ中央）。選んだ期間の一部と重なる柑橘を候補にしています。期間全体の販売や、内子町・各店舗での在庫を保証するものではありません。'));
+ notes.append(el('p','特徴欄の空欄は未確認です。気分や価格と品種の関係は判定に使用していません。'));
+ stage.append(button('もういちど あそぶ',()=>{answers={};step=0;render();}),button('答えをかえる',()=>{step=questions.length-1;render();}));
+ }else{
+ const q=questions[step];stage.append(el('div',(step+1)+'もんめ ／ '+questions.length+'もん','text-small'),el('h3',q[0]));
+
+
+ const group=el('div',undefined,'viz-grid');q[2].forEach(([value,label])=>{const b=button(label,()=>{answers[q[1]]=value;for(let n=step+1;n<questions.length;n++)delete answers[questions[n][1]];step++;render();});b.classList.add('viz-tile');b.setAttribute('aria-pressed',String(answers[q[1]]===value));group.append(b);});stage.append(group);
+ if(step>0)stage.append(button('ひとつ もどる',()=>{step--;render();}));
+ }
+ queueMicrotask(()=>{const h=stage.querySelector('h3');if(h){h.tabIndex=-1;h.focus({preventScroll:true});h.scrollIntoView?.({block:'start'});}});
+ }
+ render();
+}
+
+function renderRoute() {
+  const id = location.hash.slice(1);
+  const item = Object.prototype.hasOwnProperty.call(diagnoses, id) ? diagnoses[id] : null;
+  home.hidden = !!item; detail.hidden = !item;
+  if (item) {
+    document.getElementById('diagnosis-tag').textContent = item.tag;
+    document.getElementById('diagnosis-title').textContent = item.title;
+    document.getElementById('diagnosis-description').textContent = item.description;
+    const steps = document.getElementById('diagnosis-steps'); steps.replaceChildren();
+    item.steps.forEach(text => { const li = document.createElement('li'); li.textContent = text; steps.appendChild(li); });
+    renderQuiz(id); document.title = item.title + '｜こども版';
+    document.getElementById('diagnosis-title').focus({preventScroll:true});
+  } else {
+    document.title = 'みかんチャート｜こども版';
+    const previous = Array.from(cards.children).find(button => button.dataset.diagnosis === lastSelected);
+    (previous || document.getElementById('home-title')).focus({preventScroll:true});
+  }
+  window.scrollTo(0, 0);
+}
+document.querySelectorAll('[data-home]').forEach(button => button.addEventListener('click', () => { location.hash = 'home'; }));
+window.addEventListener('hashchange', renderRoute);
+renderRoute();
+</script>
+<p class="creator-credit">作成：國學院大學観光まちづくり学部米田ゼミ3期生</p>
+</body>
+</html>
+
+
+
+
