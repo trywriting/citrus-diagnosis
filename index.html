@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fffaf1">
-<title>柑橘チャート</title>
+<title>みかんをもっと楽しく</title>
 <style>
 :root{--orange:#c55716;--green:#286644;--ink:#29382d;--muted:#626d61;--paper:#fffaf1;--line:#e6e5d6}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.8}button{font:inherit}button,a{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible{outline:3px solid var(--green);outline-offset:5px}[hidden]{display:none!important}.wrap{max-width:920px;margin:auto;padding:36px 24px 24px}.brand{display:inline-flex;align-items:center;gap:10px;color:var(--green);font-size:14px;font-weight:700;letter-spacing:.1em}.brand:before{content:"";width:12px;height:12px;border-radius:50%;background:var(--orange)}header{border-bottom:1px solid var(--line);padding-bottom:20px}.hero{padding:46px 0 30px}.eyebrow{color:var(--orange);font-size:12px;font-weight:700;letter-spacing:.16em;margin:0 0 10px}h1{font-size:clamp(30px,5vw,44px);line-height:1.4;letter-spacing:.03em;margin:0 0 16px}h2{font-size:clamp(25px,4vw,34px);line-height:1.5;margin:12px 0 18px}.intro{color:var(--muted);margin:0;max-width:580px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{appearance:none;width:100%;text-align:left;border:1px solid var(--line);border-radius:18px;background:#fff;padding:25px 22px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;transition:transform .18s,border-color .18s,box-shadow .18s;color:var(--ink)}.card:hover{transform:translateY(-3px);border-color:var(--orange);box-shadow:0 8px 24px #29382d09}.number{font-size:12px;font-weight:700;color:var(--orange);letter-spacing:.12em}.card-title{font-size:20px;font-weight:700;line-height:1.6;margin:20px 0 12px}.card-description{font-size:14px;color:var(--muted);margin-bottom:24px}.card-action{margin-top:auto;color:var(--green);font-size:14px;font-weight:700}.note{color:var(--muted);font-size:13px;margin:24px 0 0}.back{appearance:none;border:0;background:transparent;padding:12px 0;color:var(--green);cursor:pointer;min-height:48px;font-size:14px;font-weight:700}.detail{padding-top:24px;max-width:650px;margin:auto}.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:36px;margin-top:14px}.tag{display:inline-block;background:#eef4e9;color:var(--green);border-radius:50px;padding:4px 12px;font-size:12px;font-weight:700}.description{color:var(--muted);margin:0 0 26px}.steps{padding:20px;border-radius:12px;background:var(--paper);font-size:14px}.steps p{margin:0 0 8px;font-weight:700}.steps ol{padding-left:22px;margin:0;color:var(--muted)}.status{padding:16px 0 0;color:var(--muted);font-size:13px;margin:0}.return{background:var(--green);color:white;border:0;border-radius:10px;padding:13px 20px;width:100%;min-height:48px;cursor:pointer;margin-top:22px;font-weight:700}.return:hover{background:#1c5033}footer{border-top:1px solid var(--line);margin-top:48px;padding:20px 0;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}@media(max-width:700px){.wrap{padding:22px 20px}.hero{padding:32px 0 24px}.cards{grid-template-columns:1fr;gap:12px}.card{padding:20px 22px}.card-title{margin:8px 0;font-size:20px}.card-description{margin-bottom:12px}.panel{padding:25px 22px}.detail{padding-top:14px}footer{margin-top:32px}}@media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
@@ -19,10 +19,10 @@ body{padding-bottom:56px}.creator-credit{position:fixed;right:12px;bottom:8px;z-
 </head>
 <body>
 <div class="wrap">
-<header><span class="brand">柑橘チャート</span></header>
+<header><span class="brand">みかんをもっと楽しく</span></header>
 <main id="main">
 <section id="home" aria-labelledby="home-title">
-<div class="hero"><p class="eyebrow">CITRUS CHART</p><h1 id="home-title" tabindex="-1">柑橘で、ちょっと自分発見。</h1><p class="intro">今日食べたい味も、友達との付き合い方も。<br>気になるチャートを選んでみよう。</p></div>
+<div class="hero"><p class="eyebrow">CITRUS CHART</p><h1 id="home-title" tabindex="-1">みかんをもっと楽しく</h1><p class="intro">今日食べたい味も、友達との付き合い方も。<br>気になるチャートを選んでみよう。</p></div>
 <p class="scope">愛媛県中予地域で生産されている柑橘を中心に紹介します。</p>
 <div class="cards" id="diagnosis-cards"></div>
 
@@ -36,7 +36,7 @@ body{padding-bottom:56px}.creator-credit{position:fixed;right:12px;bottom:8px;z-
 <div id="quiz-notes" class="result-notes" hidden></div></div>
 </section>
 </main>
-<footer><span>柑橘チャート</span><span>柑橘をもっと身近に、もっと楽しく。</span></footer>
+<footer><span>みかんをもっと楽しく</span></footer>
 </div>
 <script>
 'use strict';
@@ -1260,10 +1260,10 @@ function renderRoute() {
     document.getElementById('diagnosis-description').textContent = item.description;
     const steps = document.getElementById('diagnosis-steps'); steps.replaceChildren();
     item.steps.forEach(text => { const li = document.createElement('li'); li.textContent = text; steps.appendChild(li); });
-    renderQuiz(id); document.title = item.title + ' | 柑橘チャート';
+    renderQuiz(id); document.title = item.title + ' | みかんをもっと楽しく';
     document.getElementById('diagnosis-title').focus({preventScroll:true});
   } else {
-    document.title = '柑橘チャート';
+    document.title = 'みかんをもっと楽しく';
     const previous = Array.from(cards.children).find(button => button.dataset.diagnosis === lastSelected);
     (previous || document.getElementById('home-title')).focus({preventScroll:true});
   }
