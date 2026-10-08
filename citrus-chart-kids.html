@@ -30,21 +30,21 @@ body{padding-bottom:56px}.creator-credit{position:fixed;right:12px;bottom:8px;z-
 </section>
 <section id="diagnosis" class="detail" aria-labelledby="diagnosis-title" hidden>
 <button type="button" class="back" data-home>← はじめのページへ</button>
-<div class="panel"><span class="tag" id="diagnosis-tag"></span><h2 id="diagnosis-title" tabindex="-1"></h2><p class="description" id="diagnosis-description"></p><div class="steps"><p>あそび方</p><ol id="diagnosis-steps"></ol></div>
+<div class="panel"><span class="tag" id="diagnosis-tag"></span><h2 id="diagnosis-title" tabindex="-1"></h2><p class="description" id="diagnosis-description"></p><div class="steps"><p>あそびかた</p><ol id="diagnosis-steps"></ol></div>
 <!-- 質問と結果はこの領域に描画します。入口と戻る操作はそのまま利用できます。 -->
 <div id="quiz-content"><p class="status" role="status">このチャートは、じゅんび中です。またあそびにきてね。</p></div>
 <button type="button" class="return" data-home>はじめのページへ</button>
 <details id="kids-adult-notes" class="result-notes" hidden><summary>おとなの方へ：このチャートについて</summary><div id="quiz-notes" hidden></div></details></div>
 </section>
 </main>
-<footer><span>みかんチャート <small>こども版</small></span><span>みかんを、もっと楽しく。</span></footer>
+<footer><span>みかんチャート <small>こども版</small></span><span>みかんを、もっと たのしく。</span></footer>
 </div>
 <script>
 'use strict';
 // 診断ごとの文章と質問データをここにまとめます。
 // questions に質問を追加し、renderQuiz() に表示・判定処理を実装してください。
 const diagnoses = {
- today:{title:'きょう食べたい みかんさがし',tag:'えらぶと、しつもんがかわる',summary:'すきな味をえらんで、食べたいみかんを見つけよう。',description:'ボタンをおすと、つぎのしつもんがかわるよ。すきなものをえらんでね。せいかい・まちがいはないよ。',steps:['すきなものを、ひとつずつえらぶ','みかんの名前と、食べ方を見てみよう']}
+ today:{title:'きょう食べたい みかんさがし',tag:'えらぶと、しつもんがかわる',summary:'すきな味をえらんで、食べたいみかんを見つけよう。',description:'ボタンをおすと、つぎのしつもんがかわるよ。すきなものをえらんでね。せいかい・まちがいはないよ。',steps:['すきなものを、ひとつずつえらぶ','みかんの なまえと、食べかたを 見てみよう']}
 };
 const home = document.getElementById('home');
 const detail = document.getElementById('diagnosis');
@@ -91,7 +91,7 @@ const citrusData = [
       "texture": null,
       "aroma": null
     },
-    "eat": "手でむいて、ふさごと食べられます。",
+    "eat": "手で むいて、そのまま 食べられるよ。",
     "season": "露地：10月上旬〜1月下旬／温室：6月上旬〜9月下旬",
     "months": [
       10,
@@ -127,11 +127,11 @@ const citrusData = [
     "id": "beni",
     "name": "紅まどんな",
     "facts": {
-      "sweet": "あまい果汁",
-      "texture": "ゼリーのようになめらか。果汁がたっぷり",
-      "aroma": "食べると、かおりが広がる"
+      "sweet": "あまい しるが たっぷり",
+      "texture": "ゼリーみたいに なめらかで、じゅわっと",
+      "aroma": "食べると、かおりが ひろがる"
     },
-    "eat": "ナイフで切って食べます。切るときは、おとなの人にたのんでね。",
+    "eat": "きって 食べると たのしめるよ。きるときは、おとなの人に たのんでね。",
     "season": "12月上旬〜12月下旬",
     "months": [
       12
@@ -176,11 +176,11 @@ const citrusData = [
     "id": "kanpei",
     "name": "甘平",
     "facts": {
-      "sweet": "あまみが強い",
-      "texture": "かむと、つぶの歯ごたえがある",
+      "sweet": "あまさが つよい",
+      "texture": "かむと、つぶつぶを たのしめる",
       "aroma": "さわやかな、かおり"
     },
-    "eat": "手でむいて、ふさごと食べられます。",
+    "eat": "手で むいて、そのまま 食べられるよ。",
     "season": "2月上旬〜3月中旬",
     "months": [
       2,
@@ -218,10 +218,10 @@ const citrusData = [
     "name": "伊予柑",
     "facts": {
       "sweet": "あまさと、ほどよいすっぱさ",
-      "texture": "果汁がたっぷり",
+      "texture": "しるが たっぷり",
       "aroma": "さわやかな、かおり"
     },
-    "eat": "外の皮と、ふさをつつむ皮をむいて食べます。",
+    "eat": "外の かわと、中の うすい かわを むいて 食べよう。",
     "season": "1月上旬〜3月下旬",
     "months": [
       1,
@@ -261,11 +261,11 @@ const citrusData = [
     "id": "shiranui",
     "name": "不知火（デコポン）",
     "facts": {
-      "sweet": "あまみと、ほどよいすっぱさ。春のよく熟したものは、あまみが増して、すっぱさが減る",
+      "sweet": "あまくて、すこし すっぱい。春の たべごろには、あまさが まして すっぱさが へる",
       "texture": null,
       "aroma": "かおりがよい"
     },
-    "eat": "手でむいて、ふさごと食べられます。",
+    "eat": "手で むいて、そのまま 食べられるよ。",
     "season": "12月上旬〜5月上旬",
     "months": [
       12,
@@ -309,10 +309,10 @@ const citrusData = [
     "name": "はれひめ",
     "facts": {
       "sweet": null,
-      "texture": "やわらかく、果汁がたっぷり",
+      "texture": "やわらかくて、しるが たっぷり",
       "aroma": "オレンジのような、さわやかなかおり"
     },
-    "eat": "手でむいて、ふさごと食べられます。",
+    "eat": "手で むいて、そのまま 食べられるよ。",
     "season": "12月上旬〜1月下旬",
     "months": [
       12,
@@ -351,11 +351,11 @@ const citrusData = [
     "id": "setoka",
     "name": "せとか",
     "facts": {
-      "sweet": "こいあまみと、こく",
-      "texture": "やわらかく、果汁がたっぷり",
+      "sweet": "こい あまさと、ふかい あじ",
+      "texture": "やわらかくて、しるが たっぷり",
       "aroma": "こいかおり"
     },
-    "eat": "手でむいて、ふさごと食べられます。切るときは、おとなの人にたのんでね。",
+    "eat": "手で むいて 食べられるよ。きるときは、おとなの人に たのんでね。",
     "season": "1月下旬〜3月下旬",
     "months": [
       1,
@@ -400,11 +400,11 @@ const citrusData = [
     "id": "kara",
     "name": "カラマンダリン",
     "facts": {
-      "sweet": "強いあまみと、ほどよいすっぱさ",
-      "texture": "やわらかく、果汁がたっぷり",
+      "sweet": "あまさが つよくて、すこし すっぱい",
+      "texture": "やわらかくて、しるが たっぷり",
       "aroma": null
     },
-    "eat": "手でむいて食べます。たねがあるので、気をつけてね。",
+    "eat": "手で むいて 食べよう。たねが あるので、きを つけてね。",
     "season": "4月中旬〜5月下旬",
     "months": [
       4,
@@ -444,11 +444,11 @@ const citrusData = [
     "id": "jabara",
     "name": "じゃばら",
     "facts": {
-      "sweet": "よく熟しても、とてもすっぱい。少しにがみもある",
+      "sweet": "たべごろでも、とても すっぱい。すこし にがみも ある",
       "texture": null,
       "aroma": null
     },
-    "eat": "しぼった果汁を、料理や飲みものに入れて楽しみます。",
+    "eat": "しぼった しるを、のみものや おりょうりに 入れて たのしもう。",
     "season": "12月中旬〜2月下旬",
     "months": [
       12,
@@ -482,22 +482,22 @@ const citrusData = [
     "reading": "じゃばら"
   }
 ];
-
 // 公開情報で確認できた特徴を選ぶ分岐。選択肢は味の順位や唯一の特徴を意味しません。
+const kidsWording={"どうやって楽しみたい？":"どうやって たのしみたい？","むいて、または切って食べたい":"むいたり、きったりして 食べたい","果汁をしぼって料理や飲み物に":"しぼって、のみものや おりょうりに","まだ決めていない。特徴から選びたい":"まだ きめていない。すきなものを さがしたい","食感から選びたい":"食べたときの かんじで えらぶ","味から選びたい":"あじで えらぶ","香りから選びたい":"かおりで えらぶ","食べ方から選びたい":"食べかたで えらぶ","季節から選びたい":"食べる きせつで えらぶ","どんな食感を楽しみたい？":"食べたとき、どんな かんじが すき？","ゼリーのように、とろっとなめらか":"ゼリーみたいに とろっと","つぶつぶの歯ごたえ":"つぶつぶを かんで たのしむ","やわらかく、果汁たっぷり":"やわらかくて、じゅわっと","果汁たっぷりの柑橘。さらに楽しみたいのは？":"じゅわっとした みかん。どんな あじや かおりが すき？","濃厚な甘みとコク":"こい あまさを たのしみたい","強い甘みに、ほどよい酸味":"とても あまくて、すこし すっぱい","オレンジのような爽やかな香り":"オレンジみたいな さわやかな かおり","甘酸っぱさと爽やかな香り":"あまずっぱくて、さわやかな かおり","どんな味を楽しみたい？":"どんな あじが すき？","強い甘みと歯ごたえ":"とても あまくて、つぶつぶを かんで たのしむ","甘さと酸味のバランス":"あまさも、すっぱさも たのしみたい","甘さと酸味を楽しむなら、何が気になる？":"あまさも、すっぱさも！ どうやって 食べたい？","手で簡単にむいて、房ごと食べたい":"手で かんたんに むいて 食べたい","薄皮をむいて、香りと果汁を楽しみたい":"中の うすい かわも むいて、あじや かおりを たのしみたい","春の完熟した味わいを楽しみたい":"春に たべごろの あじを たのしみたい","どんな香りを楽しみたい？":"どんな かおりが すき？","濃厚な香りと甘み":"こい かおりと あまさ","どんな食べ方がいい？":"どうやって 食べたい？","手でむいて、房ごと食べたい":"手で むいて 食べたい","カットして、なめらかな果肉を楽しみたい":"きって、とろっとした みかんを 食べたい","薄皮をむいて、果汁たっぷりの果肉を楽しみたい":"中の うすい かわも むいて、じゅわっと たのしみたい","手でむいて楽しむなら、気になる特徴は？":"手で むいて 食べるなら、どんな みかんが いい？","強い甘みとつぶつぶの歯ごたえ":"とても あまくて、つぶつぶを かんで たのしむ","オレンジのような香り":"オレンジみたいな かおり","春の完熟した甘みとほどよい酸味":"春に たべごろの、あまくて すこし すっぱい みかん","どの季節に楽しみたい？":"いつ 食べたい？","秋から冬の定番":"秋から 冬に 食べたい","冬から春の完熟した味わい":"冬から 春に 食べたい","春から初夏の濃厚な味わい":"春から 夏の はじめに 食べたい"};
 const todayTree={
   "start": {
-    "question": "どうやって楽しみたい？",
+    "question": "どうやって たのしみたい？",
     "options": [
       [
-        "むいて、または切って食べたい",
+        "むいたり、きったりして 食べたい",
         "priority"
       ],
       [
-        "果汁をしぼって料理や飲み物に",
+        "しぼって、のみものや おりょうりに",
         "result:jabara"
       ],
       [
-        "まだ決めていない。特徴から選びたい",
+        "まだ きめていない。すきなものを さがしたい",
         "priority"
       ]
     ]
@@ -506,171 +506,171 @@ const todayTree={
     "question": "なにから えらびたい？",
     "options": [
       [
-        "食感から選びたい",
+        "食べたときの かんじで えらぶ",
         "texture"
       ],
       [
-        "味から選びたい",
+        "あじで えらぶ",
         "taste"
       ],
       [
-        "香りから選びたい",
+        "かおりで えらぶ",
         "aroma"
       ],
       [
-        "食べ方から選びたい",
+        "食べかたで えらぶ",
         "method"
       ],
       [
-        "季節から選びたい",
+        "食べる きせつで えらぶ",
         "season"
       ]
     ]
   },
   "texture": {
-    "question": "どんな食感を楽しみたい？",
+    "question": "食べたとき、どんな かんじが すき？",
     "options": [
       [
-        "ゼリーのように、とろっとなめらか",
+        "ゼリーみたいに とろっと",
         "result:beni"
       ],
       [
-        "つぶつぶの歯ごたえ",
+        "つぶつぶを かんで たのしむ",
         "result:kanpei"
       ],
       [
-        "やわらかく、果汁たっぷり",
+        "やわらかくて、じゅわっと",
         "juicy"
       ]
     ]
   },
   "juicy": {
-    "question": "果汁たっぷりの柑橘。さらに楽しみたいのは？",
+    "question": "じゅわっとした みかん。どんな あじや かおりが すき？",
     "options": [
       [
-        "濃厚な甘みとコク",
+        "こい あまさを たのしみたい",
         "result:setoka"
       ],
       [
-        "強い甘みに、ほどよい酸味",
+        "とても あまくて、すこし すっぱい",
         "result:kara"
       ],
       [
-        "オレンジのような爽やかな香り",
+        "オレンジみたいな さわやかな かおり",
         "result:harehime"
       ],
       [
-        "甘酸っぱさと爽やかな香り",
+        "あまずっぱくて、さわやかな かおり",
         "result:iyokan"
       ]
     ]
   },
   "taste": {
-    "question": "どんな味を楽しみたい？",
+    "question": "どんな あじが すき？",
     "options": [
       [
-        "強い甘みと歯ごたえ",
+        "とても あまくて、つぶつぶを かんで たのしむ",
         "result:kanpei"
       ],
       [
-        "濃厚な甘みとコク",
+        "こい あまさを たのしみたい",
         "result:setoka"
       ],
       [
-        "強い甘みに、ほどよい酸味",
+        "とても あまくて、すこし すっぱい",
         "result:kara"
       ],
       [
-        "甘さと酸味のバランス",
+        "あまさも、すっぱさも たのしみたい",
         "balance"
       ]
     ]
   },
   "balance": {
-    "question": "甘さと酸味を楽しむなら、何が気になる？",
+    "question": "あまさも、すっぱさも！ どうやって 食べたい？",
     "options": [
       [
-        "手で簡単にむいて、房ごと食べたい",
+        "手で かんたんに むいて 食べたい",
         "result:unshu"
       ],
       [
-        "薄皮をむいて、香りと果汁を楽しみたい",
+        "中の うすい かわも むいて、あじや かおりを たのしみたい",
         "result:iyokan"
       ],
       [
-        "春の完熟した味わいを楽しみたい",
+        "春に たべごろの あじを たのしみたい",
         "result:shiranui"
       ]
     ]
   },
   "aroma": {
-    "question": "どんな香りを楽しみたい？",
+    "question": "どんな かおりが すき？",
     "options": [
       [
-        "オレンジのような爽やかな香り",
+        "オレンジみたいな さわやかな かおり",
         "result:harehime"
       ],
       [
-        "甘酸っぱさと爽やかな香り",
+        "あまずっぱくて、さわやかな かおり",
         "result:iyokan"
       ],
       [
-        "濃厚な香りと甘み",
+        "こい かおりと あまさ",
         "result:setoka"
       ]
     ]
   },
   "method": {
-    "question": "どんな食べ方がいい？",
+    "question": "どうやって 食べたい？",
     "options": [
       [
-        "手でむいて、房ごと食べたい",
+        "手で むいて 食べたい",
         "hand"
       ],
       [
-        "カットして、なめらかな果肉を楽しみたい",
+        "きって、とろっとした みかんを 食べたい",
         "result:beni"
       ],
       [
-        "薄皮をむいて、果汁たっぷりの果肉を楽しみたい",
+        "中の うすい かわも むいて、じゅわっと たのしみたい",
         "result:iyokan"
       ]
     ]
   },
   "hand": {
-    "question": "手でむいて楽しむなら、気になる特徴は？",
+    "question": "手で むいて 食べるなら、どんな みかんが いい？",
     "options": [
       [
-        "甘さと酸味のバランス",
+        "あまさも、すっぱさも たのしみたい",
         "result:unshu"
       ],
       [
-        "強い甘みとつぶつぶの歯ごたえ",
+        "とても あまくて、つぶつぶを かんで たのしむ",
         "result:kanpei"
       ],
       [
-        "オレンジのような香り",
+        "オレンジみたいな かおり",
         "result:harehime"
       ],
       [
-        "春の完熟した甘みとほどよい酸味",
+        "春に たべごろの、あまくて すこし すっぱい みかん",
         "result:shiranui"
       ]
     ]
   },
   "season": {
-    "question": "どの季節に楽しみたい？",
+    "question": "いつ 食べたい？",
     "options": [
       [
-        "秋から冬の定番",
+        "秋から 冬に 食べたい",
         "result:unshu"
       ],
       [
-        "冬から春の完熟した味わい",
+        "冬から 春に 食べたい",
         "result:shiranui"
       ],
       [
-        "春から初夏の濃厚な味わい",
+        "春から 夏の はじめに 食べたい",
         "result:kara"
       ]
     ]
@@ -679,7 +679,7 @@ const todayTree={
 function initTodayQuiz(){
  const root=document.getElementById('citrus-match'),stage=root.querySelector('#cm-stage'),path=root.querySelector('#cm-path'),notes=document.getElementById('quiz-notes');
  let current='start',history=[];
- const saved=readQuizProgress('today');if(saved&&Array.isArray(saved.history)){let node='start';for(const item of saved.history){const q=todayTree[node],option=q?.options.find(o=>o[0]===item.label);if(!option||item.node!==node)break;history.push(item);node=option[1];if(node.startsWith('result:'))break;}current=node;}
+ const saved=readQuizProgress('today');if(saved&&Array.isArray(saved.history)){let node='start';for(const item of saved.history){const label=kidsWording[item.label]||item.label;const q=todayTree[node],option=q?.options.find(o=>o[0]===label);if(!option||item.node!==node)break;history.push({...item,label});node=option[1];if(node.startsWith('result:'))break;}current=node;}
  function el(tag,text,className){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(className)e.className=className;return e;}
  function button(label,fn){const b=el('button',label,'btn');b.type='button';b.onclick=fn;return b;}
  function goBack(){const previous=history.pop();if(previous)current=previous.node;render();}
@@ -691,17 +691,17 @@ function initTodayQuiz(){
   if(current.startsWith('result:')){
    const fruit=citrusData.find(f=>f.id===current.slice(7));
    stage.append(el('h3','こんな みかんは どう？'));
-   const card=el('div',undefined,'card');card.append(el('h3',fruit.name));
-   const dl=el('dl',undefined,'facts');for(const [key,label] of [['sweet','甘さ・酸味'],['texture','食感'],['aroma','香り']]){if(fruit.facts[key])dl.append(el('dt',label),el('dd',fruit.facts[key]));}card.append(dl);
-   card.append(el('p','食べ方：'+fruit.eat),el('p','出荷時期の目安：'+fruit.season));stage.append(card);
-   stage.append(el('p','あなたが選んだ楽しみ方：'+history.map(h=>h.label).join(' → ')));
-   const extra=el('details');extra.append(el('summary','参考情報を見る'),el('p','栽培確認地域：'+fruit.region));if(fruit.note)extra.append(el('p',fruit.note));
+   const card=el('div',undefined,'card');const heading=el('h3');if(fruit.name!==fruit.reading){const ruby=el('ruby');ruby.append(el('span',fruit.name),el('rt',fruit.reading));heading.append(ruby);}else heading.textContent=fruit.name;card.append(heading);
+   const dl=el('dl',undefined,'facts');for(const [key,label] of [['sweet','あじ'],['texture','食べた かんじ'],['aroma','かおり']]){if(fruit.facts[key])dl.append(el('dt',label),el('dd',fruit.facts[key]));}card.append(dl);
+   card.append(el('p','食べかた：'+fruit.eat));stage.append(card);
+   stage.append(el('p','えらんだ たのしみかた：'+history.map(h=>h.label).join(' → ')));
+   const extra=el('details');extra.append(el('summary','おとなの方へ：時期と参考情報'),el('p','出荷時期の目安：'+fruit.season),el('p','栽培確認地域：'+fruit.region));if(fruit.note)extra.append(el('p',fruit.note));
    for(const [label,url] of [...fruit.sources,['栽培地域の根拠',fruit.regionSource]]){const p=el('p'),a=el('a',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';p.append(a);extra.append(p);}stage.append(extra);
    notes.hidden=false;if(adultNotes)adultNotes.hidden=false;
    notes.append(el('p','特徴をヒントに、おすすめのひとつを紹介しています。同じ特徴を持つ柑橘もあります。出荷時期は目安で、店舗の在庫を保証するものではありません。'));
-   stage.append(button('もういちど あそぶ',()=>{history=[];current='start';render();}),button('答えをかえる',goBack));
+   stage.append(button('もういちど あそぶ',()=>{history=[];current='start';render();}),button('こたえを かえる',goBack));
   }else{
-   const node=todayTree[current];stage.append(el('p',(history.length+1)+'問目','text-small'),el('h3',node.question));
+   const node=todayTree[current];stage.append(el('p',(history.length+1)+'もんめ','text-small'),el('h3',node.question));
    const group=el('div',undefined,'viz-grid');node.options.forEach(([label,next])=>{const b=button(label,()=>{history.push({node:current,label});current=next;render();});b.classList.add('viz-tile');group.append(b);});stage.append(group);
    if(history.length)stage.append(button('ひとつ もどる',goBack));
   }
