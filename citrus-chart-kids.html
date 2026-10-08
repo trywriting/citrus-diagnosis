@@ -44,7 +44,7 @@ body{padding-bottom:56px}.creator-credit{position:fixed;right:12px;bottom:8px;z-
 // 診断ごとの文章と質問データをここにまとめます。
 // questions に質問を追加し、renderQuiz() に表示・判定処理を実装してください。
 const diagnoses = {
- today:{title:'きょう食べたい みかんさがし',tag:'4つのしつもん',summary:'すきな味をえらんで、食べたいみかんを見つけよう。',description:'ボタンをおして、4つのしつもんにこたえてね。せいかい・まちがいはないよ。',steps:['すきなものを、ひとつずつえらぶ','みかんの名前と、食べ方を見てみよう']}
+ today:{title:'きょう食べたい みかんさがし',tag:'えらぶと、しつもんがかわる',summary:'すきな味をえらんで、食べたいみかんを見つけよう。',description:'ボタンをおすと、つぎのしつもんがかわるよ。すきなものをえらんでね。せいかい・まちがいはないよ。',steps:['すきなものを、ひとつずつえらぶ','みかんの名前と、食べ方を見てみよう']}
 };
 const home = document.getElementById('home');
 const detail = document.getElementById('diagnosis');
@@ -62,23 +62,23 @@ Object.entries(diagnoses).forEach(([id, item], index) => {
   button.addEventListener('click', () => { lastSelected = id; location.hash = id; });
   cards.appendChild(button);
 });
-function renderQuiz(id) {
-  const notes=document.getElementById('quiz-notes');notes.replaceChildren();notes.hidden=true;document.getElementById('kids-adult-notes').hidden=true;
-  if (id === 'today') {
-    const container = document.getElementById('quiz-content');
-    const start = document.createElement('button');
-    start.type = 'button'; start.className = 'return'; start.textContent = 'はじめる';
-    start.addEventListener('click', () => {
-      container.innerHTML = '<div id="citrus-match"><div id="cm-path" aria-label="これまでの回答"></div><div id="cm-stage"></div></div>';
-      initTodayQuiz();
-    });
-    container.replaceChildren(start);
-    return;
-  }
-  // 今後の拡張ポイント：diagnoses[id].questions を使い、質問・結果を表示。
-  const status = document.createElement('p'); status.className = 'status'; status.setAttribute('role', 'status');
-  status.textContent = 'このチャートは、じゅんび中です。またあそびにきてね。';
-  document.getElementById('quiz-content').replaceChildren(status);
+const progressPrefix='mikan-progress-v3-kids-';
+
+function readQuizProgress(id){try{const s=JSON.parse(localStorage.getItem(progressPrefix+id));if(s?.version===1&&Number.isInteger(s.step)&&s.step>=0&&s.step<=12)return s;}catch{}return null;}
+function clearQuizProgress(id){try{localStorage.removeItem(progressPrefix+id);}catch{}}
+function saveQuizProgress(id,state,complete){try{if(complete){clearQuizProgress(id);return;}localStorage.setItem(progressPrefix+id,JSON.stringify({version:1,...state}));}catch{}}
+function renderQuiz(id){
+ const container=document.getElementById('quiz-content'),notes=document.getElementById('quiz-notes');notes.replaceChildren();notes.hidden=true;container.replaceChildren();
+ function launch(){
+  if(id==='today'){container.innerHTML='<div id="citrus-match"><div id="cm-path" aria-label="これまでの回答"></div><div id="cm-stage"></div></div>';initTodayQuiz();}
+  else {const stage=document.createElement('div');stage.id=id==='favorite'?'personality-stage':'jabara-stage';container.replaceChildren(stage);if(id==='favorite')initPersonalityQuiz();else initJabaraQuiz();}
+ }
+ if(id==='personality'){
+  const p=document.createElement('p');p.className='text-small';p.append('商品情報は、こちらのサイトを参考にしています：');const a=document.createElement('a');a.textContent='内子フレッシュパークからり 公式オンラインショップ';a.href='https://kararishop.jp/?cbid=2480555&csid=0&mode=cate';a.target='_blank';a.rel='noopener noreferrer';p.append(a);container.append(p);
+ }
+ const saved=readQuizProgress(id);
+ if(saved?.step>0){const p=document.createElement('p');p.textContent='とちゅうまでの答えがあるよ。';container.append(p);const resume=document.createElement('button');resume.type='button';resume.className='return';resume.textContent='つづきから あそぶ';resume.onclick=launch;container.append(resume);}
+ const start=document.createElement('button');start.type='button';start.className='return';start.textContent=saved?.step>0?'はじめから あそぶ':'はじめる';start.onclick=()=>{clearQuizProgress(id);launch();};container.append(start);
 }
 
 // 2026-10-05確認。空欄はnull。県外の情報・未確認のイメージ配点は使いません。
@@ -482,148 +482,230 @@ const citrusData = [
     "reading": "じゃばら"
   }
 ];
-const todayQuestions = [
-  [
-    "どんな味がすき？",
-    "taste",
-    [
+
+// 公開情報で確認できた特徴を選ぶ分岐。選択肢は味の順位や唯一の特徴を意味しません。
+const todayTree={
+  "start": {
+    "question": "どうやって楽しみたい？",
+    "options": [
       [
-        "sweet",
-        "あまい"
+        "むいて、または切って食べたい",
+        "priority"
       ],
       [
-        "balanced",
-        "あまくて、少しすっぱい"
+        "果汁をしぼって料理や飲み物に",
+        "result:jabara"
       ],
       [
-        "tart",
-        "すっぱい"
-      ],
-      [
-        "any",
-        "どれでもいい"
+        "まだ決めていない。特徴から選びたい",
+        "priority"
       ]
     ]
-  ],
-  [
-    "どんな食べごこちがすき？",
-    "texture",
-    [
+  },
+  "priority": {
+    "question": "なにから えらびたい？",
+    "options": [
       [
-        "jelly",
-        "ゼリーみたいに、とろっと"
+        "食感から選びたい",
+        "texture"
       ],
       [
-        "crisp",
-        "つぶつぶ、しゃきっと"
+        "味から選びたい",
+        "taste"
       ],
       [
-        "juicy",
-        "果汁が、じゅわっと"
+        "香りから選びたい",
+        "aroma"
       ],
       [
-        "any",
-        "どれでもいい"
+        "食べ方から選びたい",
+        "method"
+      ],
+      [
+        "季節から選びたい",
+        "season"
       ]
     ]
-  ],
-  [
-    "どうやって楽しみたい？",
-    "effort",
-    [
+  },
+  "texture": {
+    "question": "どんな食感を楽しみたい？",
+    "options": [
       [
-        "quick",
-        "手でむいて食べたい"
+        "ゼリーのように、とろっとなめらか",
+        "result:beni"
       ],
       [
-        "cut",
-        "切って食べたい"
+        "つぶつぶの歯ごたえ",
+        "result:kanpei"
       ],
       [
-        "squeeze",
-        "しぼって、飲みものや料理に使いたい"
+        "やわらかく、果汁たっぷり",
+        "juicy"
       ]
     ]
-  ],
-  [
-    "いつ食べたい？",
-    "timing",
-    [
+  },
+  "juicy": {
+    "question": "果汁たっぷりの柑橘。さらに楽しみたいのは？",
+    "options": [
       [
-        "autumn",
-        "秋（9〜11月）"
+        "濃厚な甘みとコク",
+        "result:setoka"
       ],
       [
-        "winter",
-        "冬（12〜2月）"
+        "強い甘みに、ほどよい酸味",
+        "result:kara"
       ],
       [
-        "spring",
-        "春（4〜5月）"
+        "オレンジのような爽やかな香り",
+        "result:harehime"
       ],
       [
-        "anytime",
-        "いつでもいい"
+        "甘酸っぱさと爽やかな香り",
+        "result:iyokan"
       ]
     ]
-  ]
-];
-const timingMonths = {autumn:[9,10,11],december:[12],january:[1],february:[2],march:[3],spring:[4,5],winter:[12,1,2],anytime:[]};
-// 一致する回答を各1点として数えます。これは検索用の対応づけで、糖度や香りの強度の順位ではありません。
-function rankCitrus(answers) {
- const months=timingMonths[answers.timing] || [];
- const cooking=answers.scene==='cooking'||answers.effort==='squeeze';
- return citrusData.filter(f=>!months.length||f.months.some(m=>months.includes(m)))
- .filter(f=>f.id!=='jabara'||cooking)
- .map((fruit,index)=>({fruit,index,matches:todayQuestions.filter(q=>fruit.matches[q[1]]?.includes(answers[q[1]]))}))
- .map(item=>({...item,score:item.matches.length})).sort((a,b)=>b.score-a.score||a.index-b.index);
-}
-function initTodayQuiz() {
- const root=document.getElementById('citrus-match');
- const stage=root.querySelector('#cm-stage'),path=root.querySelector('#cm-path');
- const notes=document.getElementById('quiz-notes');
- const questions=todayQuestions;
- let answers={},step=0;
+  },
+  "taste": {
+    "question": "どんな味を楽しみたい？",
+    "options": [
+      [
+        "強い甘みと歯ごたえ",
+        "result:kanpei"
+      ],
+      [
+        "濃厚な甘みとコク",
+        "result:setoka"
+      ],
+      [
+        "強い甘みに、ほどよい酸味",
+        "result:kara"
+      ],
+      [
+        "甘さと酸味のバランス",
+        "balance"
+      ]
+    ]
+  },
+  "balance": {
+    "question": "甘さと酸味を楽しむなら、何が気になる？",
+    "options": [
+      [
+        "手で簡単にむいて、房ごと食べたい",
+        "result:unshu"
+      ],
+      [
+        "薄皮をむいて、香りと果汁を楽しみたい",
+        "result:iyokan"
+      ],
+      [
+        "春の完熟した味わいを楽しみたい",
+        "result:shiranui"
+      ]
+    ]
+  },
+  "aroma": {
+    "question": "どんな香りを楽しみたい？",
+    "options": [
+      [
+        "オレンジのような爽やかな香り",
+        "result:harehime"
+      ],
+      [
+        "甘酸っぱさと爽やかな香り",
+        "result:iyokan"
+      ],
+      [
+        "濃厚な香りと甘み",
+        "result:setoka"
+      ]
+    ]
+  },
+  "method": {
+    "question": "どんな食べ方がいい？",
+    "options": [
+      [
+        "手でむいて、房ごと食べたい",
+        "hand"
+      ],
+      [
+        "カットして、なめらかな果肉を楽しみたい",
+        "result:beni"
+      ],
+      [
+        "薄皮をむいて、果汁たっぷりの果肉を楽しみたい",
+        "result:iyokan"
+      ]
+    ]
+  },
+  "hand": {
+    "question": "手でむいて楽しむなら、気になる特徴は？",
+    "options": [
+      [
+        "甘さと酸味のバランス",
+        "result:unshu"
+      ],
+      [
+        "強い甘みとつぶつぶの歯ごたえ",
+        "result:kanpei"
+      ],
+      [
+        "オレンジのような香り",
+        "result:harehime"
+      ],
+      [
+        "春の完熟した甘みとほどよい酸味",
+        "result:shiranui"
+      ]
+    ]
+  },
+  "season": {
+    "question": "どの季節に楽しみたい？",
+    "options": [
+      [
+        "秋から冬の定番",
+        "result:unshu"
+      ],
+      [
+        "冬から春の完熟した味わい",
+        "result:shiranui"
+      ],
+      [
+        "春から初夏の濃厚な味わい",
+        "result:kara"
+      ]
+    ]
+  }
+};
+function initTodayQuiz(){
+ const root=document.getElementById('citrus-match'),stage=root.querySelector('#cm-stage'),path=root.querySelector('#cm-path'),notes=document.getElementById('quiz-notes');
+ let current='start',history=[];
+ const saved=readQuizProgress('today');if(saved&&Array.isArray(saved.history)){let node='start';for(const item of saved.history){const q=todayTree[node],option=q?.options.find(o=>o[0]===item.label);if(!option||item.node!==node)break;history.push(item);node=option[1];if(node.startsWith('result:'))break;}current=node;}
  function el(tag,text,className){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(className)e.className=className;return e;}
  function button(label,fn){const b=el('button',label,'btn');b.type='button';b.onclick=fn;return b;}
- function sources(parent,entries){const p=el('p',undefined,'text-small');p.append(el('span','参考：'));entries.forEach(([label,url],i)=>{if(i)p.append(el('span',' ／ '));const a=el('a',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';p.append(a);});parent.append(p);}
- function showFruit(parent,f){
- const card=el('div',undefined,'card');const heading=el('h3');if(f.name!==f.reading){const ruby=el('ruby');ruby.append(el('span',f.name),el('rt',f.reading));heading.append(ruby);}else{heading.textContent=f.name;}card.append(heading);
- const dl=el('dl',undefined,'facts');for(const [key,label] of [['sweet','味'],['texture','食べごこち'],['aroma','かおり']]){dl.append(el('dt',label),el('dd',f.facts[key] || ''));}card.append(dl);
- card.append(el('p','食べ方：'+f.eat));
- const extra=el('details');extra.append(el('summary','おとなの方へ：時期と参考情報'),el('p','出荷時期の目安：'+f.season),el('p','栽培確認地域：'+f.region));
- if(f.note)extra.append(el('p',f.note,'text-small'));
- sources(extra,f.sources);sources(extra,[['栽培地域の根拠',f.regionSource]]);card.append(extra);parent.append(card);
- }
+ function goBack(){const previous=history.pop();if(previous)current=previous.node;render();}
  function render(){
- notes.replaceChildren();notes.hidden=true;document.getElementById('kids-adult-notes').hidden=true;
- path.replaceChildren();questions.forEach(q=>{const o=q[2].find(o=>o[0]===answers[q[1]]);if(o)path.append(el('span',o[1]));});stage.replaceChildren();
- if(step===questions.length){
- const ranked=rankCitrus(answers),best=ranked[0];
- stage.append(el('h3',best?.score>0?'こんな みかんは どう？':'もういちど、えらんでみよう'));
- if(best?.score>0){
- showFruit(stage,best.fruit);
- const labels=best.matches.map(q=>q[2].find(o=>o[0]===answers[q[1]])[1]);
- stage.append(el('p','えらんだ答えと、合うところ：'+labels.join('／')));
- const tied=ranked.filter(r=>r.score===best.score).slice(1);
- if(tied.length){stage.append(el('p','こんな みかんも、合っているよ。'));
- tied.forEach(item=>{const d=el('details');d.append(el('summary',item.fruit.reading+'を見てみる'));showFruit(d,item.fruit);stage.append(d);});}
- }else{stage.append(el('p','えらんだ答えに合うみかんが、見つからなかったよ。答えをかえてみる？'));
- ranked.forEach(item=>{const d=el('details');d.append(el('summary',item.fruit.name+'の特徴を見る'));showFruit(d,item.fruit);stage.append(d);});}
- const unused=questions.filter(q=>{const v=answers[q[1]];return q[1]!=='timing'&&!citrusData.some(f=>f.matches[q[1]]?.includes(v));}).map(q=>q[0]);
- notes.hidden=false;document.getElementById('kids-adult-notes').hidden=false;
- if(unused.length)notes.append(el('p','根拠が未確認のため判定に使用していない回答項目：'+unused.join('・')));
- notes.append(el('p','出荷時期は愛媛県の情報シートを使用しています（温州みかんはJAえひめ中央）。選んだ期間の一部と重なる柑橘を候補にしています。期間全体の販売や、内子町・各店舗での在庫を保証するものではありません。'));
- notes.append(el('p','特徴欄の空欄は未確認です。気分や価格と品種の関係は判定に使用していません。'));
- stage.append(button('もういちど あそぶ',()=>{answers={};step=0;render();}),button('答えをかえる',()=>{step=questions.length-1;render();}));
- }else{
- const q=questions[step];stage.append(el('div',(step+1)+'もんめ ／ '+questions.length+'もん','text-small'),el('h3',q[0]));
-
-
- const group=el('div',undefined,'viz-grid');q[2].forEach(([value,label])=>{const b=button(label,()=>{answers[q[1]]=value;for(let n=step+1;n<questions.length;n++)delete answers[questions[n][1]];step++;render();});b.classList.add('viz-tile');b.setAttribute('aria-pressed',String(answers[q[1]]===value));group.append(b);});stage.append(group);
- if(step>0)stage.append(button('ひとつ もどる',()=>{step--;render();}));
- }
- queueMicrotask(()=>{const h=stage.querySelector('h3');if(h){h.tabIndex=-1;h.focus({preventScroll:true});h.scrollIntoView?.({block:'start'});}});
+  saveQuizProgress('today',{current,history,step:history.length},current.startsWith('result:')||history.length===0);
+  stage.replaceChildren();notes.replaceChildren();notes.hidden=true;
+  const adultNotes=document.getElementById('kids-adult-notes');if(adultNotes)adultNotes.hidden=true;
+  path.replaceChildren();history.forEach(h=>path.append(el('span',h.label)));
+  if(current.startsWith('result:')){
+   const fruit=citrusData.find(f=>f.id===current.slice(7));
+   stage.append(el('h3','こんな みかんは どう？'));
+   const card=el('div',undefined,'card');card.append(el('h3',fruit.name));
+   const dl=el('dl',undefined,'facts');for(const [key,label] of [['sweet','甘さ・酸味'],['texture','食感'],['aroma','香り']]){if(fruit.facts[key])dl.append(el('dt',label),el('dd',fruit.facts[key]));}card.append(dl);
+   card.append(el('p','食べ方：'+fruit.eat),el('p','出荷時期の目安：'+fruit.season));stage.append(card);
+   stage.append(el('p','あなたが選んだ楽しみ方：'+history.map(h=>h.label).join(' → ')));
+   const extra=el('details');extra.append(el('summary','参考情報を見る'),el('p','栽培確認地域：'+fruit.region));if(fruit.note)extra.append(el('p',fruit.note));
+   for(const [label,url] of [...fruit.sources,['栽培地域の根拠',fruit.regionSource]]){const p=el('p'),a=el('a',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';p.append(a);extra.append(p);}stage.append(extra);
+   notes.hidden=false;if(adultNotes)adultNotes.hidden=false;
+   notes.append(el('p','特徴をヒントに、おすすめのひとつを紹介しています。同じ特徴を持つ柑橘もあります。出荷時期は目安で、店舗の在庫を保証するものではありません。'));
+   stage.append(button('もういちど あそぶ',()=>{history=[];current='start';render();}),button('答えをかえる',goBack));
+  }else{
+   const node=todayTree[current];stage.append(el('p',(history.length+1)+'問目','text-small'),el('h3',node.question));
+   const group=el('div',undefined,'viz-grid');node.options.forEach(([label,next])=>{const b=button(label,()=>{history.push({node:current,label});current=next;render();});b.classList.add('viz-tile');group.append(b);});stage.append(group);
+   if(history.length)stage.append(button('ひとつ もどる',goBack));
+  }
+  queueMicrotask(()=>{const h=stage.querySelector('h3');if(h){h.tabIndex=-1;h.focus({preventScroll:true});h.scrollIntoView?.({block:'start'});}});
  }
  render();
 }
