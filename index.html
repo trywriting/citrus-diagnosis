@@ -58,6 +58,8 @@ body{padding-bottom:56px}.creator-credit{position:fixed;right:12px;bottom:8px;z-
 }
 @media(max-width:370px){.cards .card-title{font-size:16px}.cards .card-action{font-size:0}h1{font-size:25px}.viz-tile{font-size:13px}}
 
+.diagnosis-hero{padding:24px 0 12px}
+@media(max-width:700px){.diagnosis-hero{padding:12px 0 4px}.diagnosis-hero h1{margin-bottom:4px}body.quiz-question .viz-grid{gap:6px}body.quiz-question .viz-tile{min-height:48px;padding:8px 9px}}
 </style>
 </head>
 <body>
@@ -72,6 +74,7 @@ body{padding-bottom:56px}.creator-credit{position:fixed;right:12px;bottom:8px;z-
 
 </section>
 <section id="diagnosis" class="detail" aria-labelledby="diagnosis-title" hidden>
+<div class="hero diagnosis-hero"><p class="eyebrow">CITRUS CHART</p><h1>みかんをもっと楽しく</h1></div>
 <button type="button" class="back" data-home>← チャート一覧に戻る</button>
 <div class="panel"><span class="tag" id="diagnosis-tag"></span><h2 id="diagnosis-title" tabindex="-1"></h2><p class="description" id="diagnosis-description"></p><div class="steps"><p>このチャートの楽しみ方</p><ol id="diagnosis-steps"></ol></div>
 <!-- 質問と結果はこの領域に描画します。入口と戻る操作はそのまま利用できます。 -->
