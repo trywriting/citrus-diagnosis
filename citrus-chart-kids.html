@@ -751,7 +751,7 @@ function initTodayQuiz(){
    const extra=el('details');extra.append(el('summary','おとなの方へ：時期と参考情報'),el('p','出荷時期の目安：'+fruit.season),el('p','栽培確認地域：'+fruit.region));if(fruit.note)extra.append(el('p',fruit.note));
    for(const [label,url] of [...fruit.sources,['栽培地域の根拠',fruit.regionSource]]){const p=el('p'),a=el('a',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';p.append(a);extra.append(p);}stage.append(extra);
    notes.hidden=false;if(adultNotes)adultNotes.hidden=false;
-   notes.append(el('p','特徴をヒントに、おすすめのひとつを紹介しています。同じ特徴を持つ柑橘もあります。出荷時期は目安で、店舗の在庫を保証するものではありません。'));
+   notes.append(el('p','すきな あじや 食べかたから、おすすめを ひとつ えらんでいるよ。にた みかんも あるので、いろいろ ためしてみてね。お店に ならぶ 時期は めやすだよ。お店によって、かえる みかんは ちがうよ。'));
    stage.append(button('もういちど あそぶ',()=>{history=[];current='start';render();}),button('こたえを かえる',goBack));
   }else{
    const node=todayTree[current];stage.append(el('p',(history.length+1)+'もんめ','text-small'),el('h3',node.question));

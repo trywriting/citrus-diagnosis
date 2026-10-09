@@ -630,16 +630,16 @@ function initTodayQuiz(){
   questions.forEach(q=>{const o=q.options.find(o=>o[0]===answers[q.key]);if(o)path.append(el('span',o[1]));});
   if(step===questions.length){
    const ranked=rankToday(answers),best=ranked[0];stage.append(el('h3','今日のあなたに、こんな柑橘はいかが？'));fruitCard(stage,best.fruit);
-   if(best.matches.length){stage.append(el('p','おすすめにつながった好み：'+best.matches.map(k=>questions.find(q=>q.key===k).options.find(o=>o[0]===answers[k])[1]).join('／')));}else stage.append(el('p','選んだ時期や用途からのおすすめです。味・食感の一致は確認できなかったので、特徴を見て選んでみてください。'));
+   if(best.matches.length){stage.append(el('p','おすすめにつながった好み：'+best.matches.map(k=>questions.find(q=>q.key===k).options.find(o=>o[0]===answers[k])[1]).join('／')));}else stage.append(el('p','今回は、食べたい時期や使い方をヒントに選びました。味や食感が好みに合うかは、紹介した特徴も参考にしてみてください。'));
    const mood=todayFlow.mood.options.find(o=>o[0]===answers.mood),scene=todayFlow.scene.options.find(o=>o[0]===answers.scene);
-   stage.append(el('p','今日は「'+mood[1]+'」気分。「'+scene[1]+'」のおともに、'+best.fruit.name+'を楽しんでみてね。'));
+   stage.append(el('p','今日は「'+mood[1]+'」気分。「'+scene[1]+'」のおともに、'+best.fruit.name+'を楽しんでみてください。'));
    if(answers.mode==='juice')stage.append(el('p',todayPreparationTip(answers,best.fruit.id)));
-   if(best.unmatched.length)stage.append(el('p','今回の結果では一致を確認できなかった好み：'+best.unmatched.map(k=>todayFlow[k].options.find(o=>o[0]===answers[k])[1]).join('／')));
-   if(!best.focusAvailable)stage.append(el('p','一番大切にした好みと、選んだ用途・食べ方を両方満たす候補は確認できませんでした。今回は用途・食べ方に合う候補を紹介しています。回答を見直すこともできます。'));
+   if(best.unmatched.length)stage.append(el('p','この柑橘では、合うかどうか確認できなかった好み：'+best.unmatched.map(k=>todayFlow[k].options.find(o=>o[0]===answers[k])[1]).join('／')));
+   if(!best.focusAvailable)stage.append(el('p','いちばん大切にした好みと、食べ方・使い方の両方に合う柑橘は見つかりませんでした。今回は食べ方・使い方に合うものを選んでいます。気になる場合は、答えを変えて探してみてください。'));
    const tied=ranked.filter(r=>r.score===best.score).slice(1);if(tied.length){stage.append(el('p','同じくらい好みに合う柑橘もあるよ。'));tied.forEach(r=>{const d=el('details');d.append(el('summary',r.fruit.name+'も見てみる'));fruitCard(d,r.fruit);stage.append(d);});}
    const extra=el('details');extra.append(el('summary','参考情報を見る'),el('p','栽培確認地域：'+best.fruit.region));if(best.fruit.note)extra.append(el('p',best.fruit.note));for(const [label,url]of [...best.fruit.sources,['栽培地域の根拠',best.fruit.regionSource]]){const p=el('p'),a=el('a',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';p.append(a);extra.append(p);}stage.append(extra);
-   if(!best.seasonAvailable)stage.append(el('p','用途・食べ方と優先した好みに合う候補は、選んだ時期の出荷情報と重なりませんでした。別の時期の候補として紹介しています。'));
-   notes.hidden=false;notes.append(el('p','気分やシーンは楽しみ方の表示に使っています（贈答用途は判定にも使用）。用途・具体的に希望した食べ方を守り、その範囲で最後に選んだ好みを優先します。両立しない条件は結果に表示します。同じ特徴を持つ柑橘もあります。出荷時期は目安です。'));
+   if(!best.seasonAvailable)stage.append(el('p','好みに合う柑橘を選びましたが、出まわる時期は選んだ時期と違います。食べごろの目安もご覧ください。'));
+   notes.hidden=false;notes.append(el('p','食べ方・使い方に合うものから、最後に選んだ好みを大切にしておすすめしています。気分や食べる場面は、楽しみ方のひとことに使っています。贈り物を選んだときは、その使い方もヒントにします。似た特徴の柑橘もありますので、ぜひいろいろ試してみてください。出荷時期は目安です。'));
    stage.append(button('もう一度診断する',()=>{answers={};step=0;render();}),button('回答を見直す',()=>{step--;render();}));
   }else{
    const q=questions[step];stage.append(el('p',(step+1)+' / '+questions.length+'問','text-small'),el('h3',q.title));
@@ -877,7 +877,7 @@ function initPersonalityQuiz(){
  if(matches.length){const list=el('ul');matches.forEach(item=>list.append(el('li',personalityQuestions[item.q][1][item.answer])));stage.append(el('p','あなたの回答で重なったところ'),list);}
  if(tied.length){stage.append(el('p','同じくらい近いタイプもあります。'));tied.forEach(item=>{const details=el('details');details.append(el('summary',item.profile.name+'の人格も見る'));showProfile(details,item.profile);stage.append(details);});}
  stage.append(button('もう一度診断する',()=>{answers=[];step=0;render();}),button('回答を見直す',()=>{step=personalityQuestions.length-1;render();}));
- notes.hidden=false;notes.append(el('p','柑橘の特徴から連想した創作の人格診断です。性格の優劣や、友達との相性を決めるものではありません。回答したときの自分に近いイメージとして楽しんでください。'));
+ notes.hidden=false;notes.append(el('p','柑橘の特徴をもとに想像した、遊びの診断です。今のご自身に近いイメージとしてお楽しみください。'));
  }else{
  const [title,options]=personalityQuestions[step];stage.append(el('p',(step+1)+' / '+personalityQuestions.length,'text-small'),el('h3',title));
  const group=el('div',undefined,'viz-grid');options.forEach((label,value)=>{const b=button(label,()=>{answers[step]=value;answers.length=step+1;step++;render();});b.classList.add('viz-tile');b.setAttribute('aria-pressed',String(answers[step]===value));group.append(b);});stage.append(group);
@@ -1081,10 +1081,10 @@ function initJabaraQuiz(){
  const choice=q=>q[2].find(o=>o[0]===answers[q[1]])[1];
  stage.append(el('p','最初に選んだ楽しみ方：'+choice(questions[0])));
  stage.append(el('p','こんな楽しみ方はいかが？'));const list=el('ul');jabaraSuggestions(answers,key).forEach(text=>list.append(el('li',text)));stage.append(list);
- if(answers.enjoy!=='use'){const ranked=rankJabaraProducts(answers),reasons=ranked.find(r=>r.key===key).matches;const labels=reasons.map(m=>{const q=questions.find(q=>q[1]===m.field);return choice(q);});stage.append(el('p','おすすめにつながった回答：'+labels.join('／')));const unmatched=questions.filter(q=>['effort','taste'].includes(q[1])&&!reasons.some(m=>m.field===q[1]));if(unmatched.length)stage.append(el('p','この商品では一致を確認できなかった好み：'+unmatched.map(choice).join('／')));stage.append(el('p',answers.enjoy==='eat'?'食べものの形を優先して紹介しています。':'そのまま飲む・混ぜて作るという希望を優先して紹介しています。'));}
+ if(answers.enjoy!=='use'){const ranked=rankJabaraProducts(answers),reasons=ranked.find(r=>r.key===key).matches;const labels=reasons.map(m=>{const q=questions.find(q=>q[1]===m.field);return choice(q);});stage.append(el('p','おすすめにつながった回答：'+labels.join('／')));const unmatched=questions.filter(q=>['effort','taste'].includes(q[1])&&!reasons.some(m=>m.field===q[1]));if(unmatched.length)stage.append(el('p','この商品では、合うかどうか確認できなかった好み：'+unmatched.map(choice).join('／')));stage.append(el('p',answers.enjoy==='eat'?'食べものの形を優先して紹介しています。':'そのまま飲む・混ぜて作るという希望を優先して紹介しています。'));}
  
  stage.append(button('もう一度診断する',()=>{answers={};step=0;render();}),button('回答を見直す',()=>{step=answers.enjoy==='use'?0:questions.length-1;render();}));
- notes.hidden=false;notes.append(el('p','選んだ楽しみ方に合わせて、場面・手間・味・食べものの形を組み合わせて商品を提案します。商品の情報は提供いただいた説明に基づきます。健康への効果や、添加物の有無による安全性は判定していません。'));
+ notes.hidden=false;notes.append(el('p','食べ方や飲み方、好みをヒントに、おすすめの商品を選んでいます。商品紹介は、いただいた説明と参考サイトをもとにしています。楽しみ方を探すヒントとしてご利用ください。'));
  }else{
  const q=questions[step];stage.append(el('p',(step+1)+' / '+questions.length,'text-small'),el('h3',q[0]));
 
