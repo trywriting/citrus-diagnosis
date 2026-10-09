@@ -15,6 +15,48 @@
 body{font-size:17px}.btn,.return{font-size:18px;min-height:60px;padding:17px 18px}.card-description,.intro,.description{font-size:17px}.card-action{font-size:17px}.cards{grid-template-columns:1fr}.card-title{font-size:24px}.brand{font-size:18px;letter-spacing:0}.brand small{font-size:13px;background:#eef4e9;padding:4px 8px;border-radius:8px}.viz-grid{gap:14px}.scope{font-size:14px}.facts{grid-template-columns:90px 1fr}rt{font-size:12px}ruby{ruby-position:over}#cm-path{display:none}.steps{font-size:16px}.result-notes{font-size:12px}@media(max-width:700px){.wrap{padding:22px 16px}.panel{padding:24px 18px}.facts{grid-template-columns:78px 1fr}}
 body{padding-bottom:56px}.creator-credit{position:fixed;right:12px;bottom:8px;z-index:10;margin:0;max-width:calc(100% - 24px);padding:4px 8px;border-radius:6px;background:var(--paper);color:var(--muted);font-size:11px;line-height:1.6;text-align:right;overflow-wrap:anywhere}
 .version-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;margin-top:24px;border:1px solid var(--green);border-radius:10px;background:#eef4e9;color:var(--green);font-weight:700;text-decoration:none}.version-link:hover{background:#e1ecd9}
+
+.mobile-summary{display:none}
+/* 小さな画面では、タイトルと選択肢を一緒に読める余白・列数にする。 */
+@media(max-width:700px){
+ .desktop-summary{display:none}.mobile-summary{display:inline}
+ body{padding-bottom:calc(36px + env(safe-area-inset-bottom,0px));line-height:1.6;-webkit-text-size-adjust:100%}
+ .wrap{padding:12px 14px 10px;padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px))}
+ header{display:none;padding-bottom:8px}.brand{font-size:12px}.brand small{font-size:11px}
+ .hero{padding:12px 0 10px}.eyebrow{font-size:10px;margin-bottom:4px}h1{font-size:27px;line-height:1.35;margin-bottom:8px;letter-spacing:0}
+ .intro{font-size:13px;line-height:1.55}.scope{font-size:11px;line-height:1.5;margin-bottom:12px}
+ .cards{gap:8px}.cards .card{padding:10px 12px;border-radius:13px;display:grid;grid-template-columns:1fr auto;gap:3px 8px;min-width:0}
+ .cards .number{font-size:10px;grid-column:1}.cards .card-title{font-size:17px;line-height:1.4;margin:0;grid-column:1}
+ .cards .card-description{font-size:12px;line-height:1.45;margin:1px 0 0;grid-column:1}
+ .cards .card-action{font-size:0;grid-column:2;grid-row:1/4;align-self:center;white-space:nowrap;margin:0}
+ .cards .card-action:after{content:"→";font-size:18px}
+ .version-link{font-size:13px;min-height:44px;padding:8px 14px;margin-top:12px;width:100%}
+ .note{font-size:12px;margin-top:10px}footer{display:none;font-size:10px;margin-top:14px;padding:8px 0}
+ .detail{padding-top:0}.back{padding:6px 0;min-height:40px;font-size:12px}
+ .panel{padding:16px 14px;border-radius:16px;margin-top:4px}.tag{font-size:10px;padding:2px 8px}
+ #diagnosis-title{font-size:22px;line-height:1.4;margin:6px 0 10px}
+ .description{font-size:13px;line-height:1.6;margin-bottom:12px}.steps{font-size:12px;line-height:1.5;padding:12px}
+ #quiz-content{margin-top:12px}.return{font-size:14px;min-height:44px;padding:10px 12px;margin-top:12px}
+ .btn{font-size:14px;line-height:1.45;min-height:44px;padding:10px 11px;margin:6px 6px 0 0}
+ .viz-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+ .viz-tile{margin:0;min-width:0;min-height:52px;padding:10px 9px;overflow-wrap:anywhere;white-space:normal}
+ .viz-tile.option-long{grid-column:1/-1}
+ #cm-stage>h3,#personality-stage>h3,#jabara-stage>h3{font-size:19px;line-height:1.45;margin:8px 0}
+ .text-small{font-size:11px;line-height:1.5}#cm-stage>p,#personality-stage>p,#jabara-stage>p{margin:8px 0}
+ #cm-path{display:none}
+ body.quiz-active .description,body.quiz-active .steps,body.quiz-active .tag{display:none}
+ body.quiz-active header,body.quiz-active footer{display:none}
+ body.quiz-active #diagnosis-title{position:sticky;top:0;z-index:5;background:#fff;padding:7px 0;margin:0 0 8px;border-bottom:1px solid var(--line)}
+ body.quiz-active .panel{overflow:visible}body.quiz-active #quiz-content{margin-top:0}
+ body.quiz-question #cm-stage>p.text-small:not(:first-child){display:none}
+ body.quiz-active .back{min-height:32px;padding:4px 0}
+ body.quiz-active .panel{padding:12px 14px}
+ body.quiz-question .panel>.return[data-home]{display:none}
+ .creator-credit{font-size:9px;line-height:1.4;bottom:calc(4px + env(safe-area-inset-bottom,0px));right:8px;padding:3px 5px;pointer-events:none}
+ #cm-stage .card h3,#personality-stage .card h3{font-size:25px}
+}
+@media(max-width:370px){.cards .card-title{font-size:16px}.cards .card-action{font-size:0}h1{font-size:25px}.viz-tile{font-size:13px}}
+
 </style>
 </head>
 <body>
@@ -25,7 +67,7 @@ body{padding-bottom:56px}.creator-credit{position:fixed;right:12px;bottom:8px;z-
 <div class="hero"><p class="eyebrow">こども版</p><h1 id="home-title" tabindex="-1">どんな みかんが すき？</h1><p class="intro">食べたいみかんを、さがしてみよう。<br>下のボタンをおして、はじめよう。</p></div>
 <p class="scope">愛媛（えひめ）の中予（ちゅうよ）で育つ、みかんを中心にしょうかいするよ。</p>
 <div class="cards" id="diagnosis-cards"></div>
-<p class="note">4つのしつもんにこたえて、食べたいみかんをさがそう。</p>
+<p class="note">すきなものを えらんで、食べたい みかんを さがそう。</p>
 <a class="version-link" href="index.html#home">← 通常版はこちら</a>
 </section>
 <section id="diagnosis" class="detail" aria-labelledby="diagnosis-title" hidden>
@@ -57,7 +99,7 @@ Object.entries(diagnoses).forEach(([id, item], index) => {
     ['number', 'その' + (index + 1)], ['card-title', item.title],
     ['card-description', item.summary], ['card-action', id==='today'?'やってみる →':'じゅんび中 →']
   ]) {
-    const span = document.createElement('span'); span.className = className; span.textContent = value; button.appendChild(span);
+    const span = document.createElement('span'); span.className = className; span.textContent = value;if(className==='card-description'){const full=document.createElement('span');full.className='desktop-summary';full.textContent=value;const compact=document.createElement('span');compact.className='mobile-summary';compact.textContent='すきな あじで、みかんを さがそう。';span.replaceChildren(full,compact);}button.appendChild(span);
   }
   button.addEventListener('click', () => { lastSelected = id; location.hash = id; });
   cards.appendChild(button);
@@ -67,7 +109,18 @@ const progressPrefix='mikan-progress-v3-kids-';
 function readQuizProgress(id){try{const s=JSON.parse(localStorage.getItem(progressPrefix+id));if(s?.version===1&&Number.isInteger(s.step)&&s.step>=0&&s.step<=12)return s;}catch{}return null;}
 function clearQuizProgress(id){try{localStorage.removeItem(progressPrefix+id);}catch{}}
 function saveQuizProgress(id,state,complete){try{if(complete){clearQuizProgress(id);return;}localStorage.setItem(progressPrefix+id,JSON.stringify({version:1,...state}));}catch{}}
+
+function arrangeQuizOptions(stage){
+ const tiles=stage.querySelectorAll('.viz-tile');tiles.forEach(tile=>tile.classList.toggle('option-long',[...tile.textContent].length>22));
+ document.body.classList.add('quiz-active');document.body.classList.toggle('quiz-question',!!stage.querySelector('.viz-grid'));
+}
+function scrollQuizHeading(h,stage){
+ arrangeQuizOptions(stage);
+ if(window.matchMedia('(max-width:700px)').matches){window.scrollTo({top:0,left:0,behavior:'auto'});}else h.scrollIntoView?.({block:'start'});
+}
+
 function renderQuiz(id){
+ document.body.classList.remove('quiz-active','quiz-question');
  const container=document.getElementById('quiz-content'),notes=document.getElementById('quiz-notes');notes.replaceChildren();notes.hidden=true;container.replaceChildren();
  function launch(){
   if(id==='today'){container.innerHTML='<div id="citrus-match"><div id="cm-path" aria-label="これまでの回答"></div><div id="cm-stage"></div></div>';initTodayQuiz();}
@@ -705,12 +758,13 @@ function initTodayQuiz(){
    const group=el('div',undefined,'viz-grid');node.options.forEach(([label,next])=>{const b=button(label,()=>{history.push({node:current,label});current=next;render();});b.classList.add('viz-tile');group.append(b);});stage.append(group);
    if(history.length)stage.append(button('ひとつ もどる',goBack));
   }
-  queueMicrotask(()=>{const h=stage.querySelector('h3');if(h){h.tabIndex=-1;h.focus({preventScroll:true});h.scrollIntoView?.({block:'start'});}});
+  queueMicrotask(()=>{const h=stage.querySelector('h3');if(h){h.tabIndex=-1;h.focus({preventScroll:true});scrollQuizHeading(h,stage);}});
  }
  render();
 }
 
 function renderRoute() {
+ document.body.classList.remove('quiz-active','quiz-question');
   const id = location.hash.slice(1);
   const item = Object.prototype.hasOwnProperty.call(diagnoses, id) ? diagnoses[id] : null;
   home.hidden = !!item; detail.hidden = !item;
