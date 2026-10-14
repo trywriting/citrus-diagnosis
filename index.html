@@ -60,6 +60,7 @@ body{padding-bottom:56px}.creator-credit{position:fixed;right:12px;bottom:8px;z-
 
 .diagnosis-hero{padding:24px 0 12px}
 @media(max-width:700px){.diagnosis-hero{padding:12px 0 4px}.diagnosis-hero h1{margin-bottom:4px}body.quiz-question .viz-grid{gap:6px}body.quiz-question .viz-tile{min-height:48px;padding:8px 9px}}
+.jabara-introduction h3{font-size:24px;color:var(--green);margin:0 0 16px}.jabara-introduction p{font-size:15px;line-height:1.8;margin:0 0 12px}.jabara-introduction .jabara-more{margin-top:20px}.jabara-introduction a{color:var(--green);overflow-wrap:anywhere;text-underline-offset:3px}@media(max-width:700px){.jabara-introduction h3{font-size:21px;margin-bottom:12px}.jabara-introduction p{font-size:14px;line-height:1.7;margin-bottom:10px}.jabara-introduction .jabara-more{margin-top:16px}}
 </style>
 </head>
 <body>
@@ -153,9 +154,24 @@ function renderQuiz(id){
  if(id==='personality'){
   const p=document.createElement('p');p.className='text-small';p.append('商品情報は、こちらのサイトを参考にしています：');const a=document.createElement('a');a.textContent='内子フレッシュパークからり 公式オンラインショップ';a.href='https://kararishop.jp/?cbid=2480555&csid=0&mode=cate';a.target='_blank';a.rel='noopener noreferrer';p.append(a);container.append(p);
  }
+ function showJabaraIntroduction(){
+  container.replaceChildren();
+  const intro=document.createElement('section');intro.className='jabara-introduction';intro.setAttribute('aria-labelledby','jabara-intro-title');
+  const heading=document.createElement('h3');heading.id='jabara-intro-title';heading.tabIndex=-1;heading.textContent='じゃばらとは';intro.append(heading);
+  for(const text of [
+   'じゃばらは、愛媛県内子町で栽培されている柑橘の一種です。',
+   '熟しても強い酸味があるのが特徴です。',
+   '果汁をしぼって、料理や飲み物などに使われます。',
+   '花粉症との関係でも注目されています。'
+  ]){const paragraph=document.createElement('p');paragraph.textContent=text;intro.append(paragraph);}
+  const more=document.createElement('p');more.className='jabara-more';more.append('詳しくはこちらから！');
+  const link=document.createElement('a');link.textContent='内子フレッシュパークからり じゃばらとは';link.href='https://kararishop.jp/?mode=grp&gid=1044301';link.target='_blank';link.rel='noopener noreferrer';more.append(document.createElement('br'),link);intro.append(more);
+  const next=document.createElement('button');next.type='button';next.className='return';next.textContent='次に進む';next.onclick=launch;intro.append(next);container.append(intro);
+  document.body.classList.add('quiz-active');document.body.classList.remove('quiz-question');window.scrollTo({top:0,left:0,behavior:'auto'});heading.focus({preventScroll:true});
+ }
  const saved=readQuizProgress(id);
  if(saved?.step>0){const p=document.createElement('p');p.textContent='途中までの回答があります。';container.append(p);const resume=document.createElement('button');resume.type='button';resume.className='return';resume.textContent='続きから再開';resume.onclick=launch;container.append(resume);}
- const start=document.createElement('button');start.type='button';start.className='return';start.textContent=saved?.step>0?'最初からはじめる':'診断をはじめる';start.onclick=()=>{clearQuizProgress(id);launch();};container.append(start);
+ const start=document.createElement('button');start.type='button';start.className='return';start.textContent=saved?.step>0?'最初からはじめる':'診断をはじめる';start.onclick=()=>{clearQuizProgress(id);if(id==='personality')showJabaraIntroduction();else launch();};container.append(start);
 }
 
 // 2026-10-05確認。空欄はnull。県外の情報・未確認のイメージ配点は使いません。
